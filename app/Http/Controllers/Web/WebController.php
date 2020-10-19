@@ -8,19 +8,20 @@ use Illuminate\Http\Request;
 class WebController extends Controller
 {
     public function index(){
+        
         return view('web.pages.index');
     }
 
     public function aboutUs(){
-        return view('web.about_us');
+        return view('web.pages.about_us');
     }
 
     public function contactUs(){
-        return view('web.contact_us');
+        return view('web.pages.contact_us');
     }
 
     public function portfolio(){
-        return view('web.our_portfolio');
+        return view('web.pages.our_portfolio');
     }
 
 
@@ -55,25 +56,26 @@ class WebController extends Controller
     }
 
     public function services(){
-        return view('web.services');
+        return view('web.pages.services');
     }
 
 
-    public function blogsView(Request $request){
+    public function our_blog(Request $request){
         $search_keywords = $request->keywords;
         $category_id = $request->category_id;
-        $categories = BlogCategory::orderby('title')->limit(5)->inRandomOrder()->get();
-        $recent_posts = Blog::orderby('created_at' , 'desc')->limit(5)->inRandomOrder()->get();
-        $builder = Blog::where('status' , 1)->orderBy('created_at' , 'desc');
-        if(empty($category_id)){
-            $posts = $builder->where('title', 'like' , '%'.$search_keywords.'%')->paginate(20);
-        }
-        else{
-            $posts = $builder->where('title', 'like' , '%'.$search_keywords.'%')
-            ->where('post_category_id' , $category_id )->paginate(20);
-            $category_id = BlogCategory::find($category_id);
-        }
-        return view('web.blogs' , compact('posts' , 'categories' , 'search_keywords' , 'recent_posts' ));
+        // $categories = BlogCategory::orderby('title')->limit(5)->inRandomOrder()->get();
+        // $recent_posts = Blog::orderby('created_at' , 'desc')->limit(5)->inRandomOrder()->get();
+        // $builder = Blog::where('status' , 1)->orderBy('created_at' , 'desc');
+        // if(empty($category_id)){
+        //     $posts = $builder->where('title', 'like' , '%'.$search_keywords.'%')->paginate(20);
+        // }
+        // else{
+        //     $posts = $builder->where('title', 'like' , '%'.$search_keywords.'%')
+        //     ->where('post_category_id' , $category_id )->paginate(20);
+        //     $category_id = BlogCategory::find($category_id);
+        // }
+        // return view('web.pages.blog' , compact('posts' , 'categories' , 'search_keywords' , 'recent_posts' ));
+        return view('web.pages.blog');
     }
 
 
@@ -83,7 +85,7 @@ class WebController extends Controller
         $categories = BlogCategory::orderby('title')->limit(5)->inRandomOrder()->get();
         $recent_posts = Blog::orderby('created_at' , 'desc')->limit(5)->inRandomOrder()->get();
         $comments = BlogComments::where('blog_id',$post->id)->where('status',1)->orderby('id','desc')->get();
-        return view('web.blog_info' , compact('post' , 'categories' , 'recent_posts', 'comments'));
+        return view('web.pages.blog_info' , compact('post' , 'categories' , 'recent_posts', 'comments'));
     }
 
 
@@ -134,7 +136,7 @@ class WebController extends Controller
     public function share_post($id)
     {
         $post = Post::findorfail($id);
-        return view('web.share',compact('post'));
+        return view('web.pages.share',compact('post'));
     }
 
     public function make_comment(Request $request){

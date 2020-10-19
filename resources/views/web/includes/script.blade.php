@@ -1,8 +1,6 @@
 @livewireScripts
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.ui.timepicker.addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
+<script src="{{ $web_source }}/js/jquery.min.js"></script>
 <script src="{{ $web_source }}/js/jquery.uniform.min.js"></script>
 <script src="{{ $web_source }}/js/jquery.slicknav.min.js"></script>
 <script src="{{ $web_source }}/js/wow.min.js"></script>
@@ -51,4 +49,23 @@
 		notifier.NotificationApp.send(title, msg, "top-right", "#bf441d", "error")
 	}
 </script>
+
+
+ <script>
+	 $(document).ready(function () {
+		 $('.single').hide().first().show();
+		 $('.categories li:first').addClass('active');
+
+		 $('.categories a').on('click', function (e) {
+			 e.preventDefault();
+			 $(this).closest('li').addClass('active').siblings().removeClass('active');
+			 $($(this).attr('href')).show().siblings('.single').hide();
+		 });
+
+		 var hash = $.trim( window.location.hash );
+		 if (hash) $('.categories a[href$="'+hash+'"]').trigger('click');
+	 });
+ </script>
+
+ 
 @yield('script')

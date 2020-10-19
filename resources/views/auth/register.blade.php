@@ -1,43 +1,75 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
-
-        <x-jet-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+@extends('web.layouts.app' , ['title' => "Register"])
+@section('content')
+	<!-- Main -->
+	<main class="main" role="main">
+		<!-- Page info -->
+		<header class="site-title color">
+			<div class="wrap">
+				<div class="container">
+					<h1>Register</h1>
+					<nav role="navigation" class="breadcrumbs">
+						<ul>
+							<li><a href="index.html" title="Home">Home</a></li>
+							<li>Register</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<!-- //Page info -->
+		
+		<div class="wrap">
+			<div class="row">
+				<!--- Content -->
+				<div class="content one-half modal">
+					@include('web.includes.flash_message')
+					<!--Login-->
+					<div class="box">
+					<form method="POST" action="{{ route('register') }}"> @csrf
+							<div class="f-row">
+								<div class="full-width">
+									<label for="name">Your name and surname</label>
+									<input type="text" name="name" />
+								</div>
+							</div>
+							<div class="f-row">
+								<div class="full-width">
+									<label for="email">Your email address</label>
+									<input type="email" name="email" />
+								</div>
+							</div>
+							<div class="f-row">
+								<div class="full-width">
+									<label for="password">Your password</label>
+									<input type="password" name="password" />
+								</div>
+							</div>
+							<div class="f-row">
+								<div class="full-width">
+									<label for="password_confirmation">Repeat password</label>
+									<input type="password" name="password_confirmation" />
+								</div>
+							</div>
+							<div class="f-row">
+								<div class="full-width check">
+									<input type="checkbox" id="checkbox" />
+									<label for="checkbox">I agree with terms and conditions.</label>
+								</div>
+							</div>
+							<div class="f-row">
+								<div class="full-width">
+									<input type="submit" value="Create an account" class="btn color medium full" />
+								</div>
+							</div>
+							
+							<p>Already have an account? <a href="{{ route('login') }}">Login</a>.</p>
+						</form>
+					</div>
+					<!--//Login-->
+				</div>
+				<!--- //Content -->
+			</div>
+		</div>
+	</main>
+	<!-- //Main -->
+@endsection

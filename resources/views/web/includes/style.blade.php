@@ -17,3 +17,15 @@
 <![endif]-->
 <!-- Jquery Toast css -->
 <link href="{{asset('toast')}}/jquery.toast.min.css" rel="stylesheet" type="text/css" />
+<style>
+    .main{
+        margin-top: 70px;
+    }
+    .alert-danger{
+        color: white;
+        background: red;
+        width: 100%;
+        padding: 10px;
+        /* margin-bottom: 10px; */
+    }
+</style>
