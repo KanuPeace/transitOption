@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Web\WebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,33 +13,34 @@ use App\Http\Controllers\Web\WebController;
 |
 */
 
-Route::namespace('Web')->group(function () {
-    Route::get('/', [WebController::class , 'index'])->name('homepage');
-    Route::get('/about-us', [WebController::class , 'aboutUs'])->name('aboutUs');
-    Route::get('/contact-us', [WebController::class , 'contactUs'])->name('contactUs');
-    Route::get('/our-portfolio', [WebController::class , 'portfolio'])->name('portfolio');
-    Route::match(['post', 'get'],'/send', [WebController::class , 'portfolio']);
-    Route::get('/services', [WebController::class , 'services'])->name('services');
-    Route::get('/our-blog', [WebController::class , 'our_blog'])->name('our_blog');
+Route::namespace('App\Http\Controllers\Web')->group(function () {
+    Route::get('/', 'WebController@index')->name('homepage');
+    Route::get('/about-us', 'WebController@aboutUs')->name('aboutUs');
+    Route::get('/contact-us', 'WebController@contactUs')->name('contactUs');
+    Route::get('/our-portfolio', 'WebController@portfolio')->name('portfolio');
+    Route::match(['post', 'get'],'/send', 'WebController@portfolio');
+    Route::get('/services', 'WebController@services')->name('services');
+    Route::get('/our-blog', 'WebController@our_blog')->name('our_blog');
     Route::post('/our-blog/comment', 'WebController@blogsComment')->name('our_blog.comment');
     Route::match(['post', 'get'],'/subscribe', 'WebController@subscribe')->name('subscribe');
     Route::get('unsubscribe/{email}','WebController@unsubscribe')->name('unsubscribe');
     Route::get('post/{id}/{slug}', 'WebController@blog_info')->name('blog_info');
     Route::post('make-comment', 'WebController@make_comment')->name('make_comment');
     Route::get('/share/{id}','WebController@share_post')->name('share_post');
-    Route::match(['post','get'],'/admin/login', 'AdminController@login')->name('Adminlogin');
-    Route::post('/contact-process','ContactController@store')->name('contact.store');
+    // Route::match(['post','get'],'/admin/login', 'AdminController@login')->name('Adminlogin');
+    // Route::post('/contact-process','ContactController@store')->name('contact.store');
 });
 
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->namespace('User')->prefix('consumer')->as('user.')->group(function (){
+    Route::get('/dashboard')->name('dashboard');
 
+});
 
-Route::middleware('admin')->namespace('Admin')->prefix('admin')->group(function (){
+Route::middleware(['auth:sanctum', 'verified'])->namespace('App\Http\Controllers\Admin')->prefix('admin')->as('admin.')->group(function (){
 
-    Route::get('/dashboard', [HomeController::class , 'index'])->name('admin_dashboard');
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
     Route::prefix('blog')->as('blog.')->group(function () {
         Route::resource('categories','BlogCategoryController');

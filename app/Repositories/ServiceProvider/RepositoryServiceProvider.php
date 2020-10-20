@@ -128,26 +128,26 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Eloquent\ReferralRepository'
         );
 
-        $this->app->bind(
-            'App\Repositories\Interfaces\CourseRepositoryInterface',
-            'App\Repositories\Eloquent\CourseRepository'
-        );
+        // $this->app->bind(
+        //     'App\Repositories\Interfaces\CourseRepositoryInterface',
+        //     'App\Repositories\Eloquent\CourseRepository'
+        // );
 
-        $this->app->bind(
-            'App\Repositories\Interfaces\CourseCategoryRepositoryInterface',
-            'App\Repositories\Eloquent\CourseCategoryRepository'
-        );
+        // $this->app->bind(
+        //     'App\Repositories\Interfaces\CourseCategoryRepositoryInterface',
+        //     'App\Repositories\Eloquent\CourseCategoryRepository'
+        // );
 
-        $this->app->bind(
-            'App\Repositories\Interfaces\CourseSectionRepositoryInterface',
-            'App\Repositories\Eloquent\CourseSectionRepository'
-        );
+        // $this->app->bind(
+        //     'App\Repositories\Interfaces\CourseSectionRepositoryInterface',
+        //     'App\Repositories\Eloquent\CourseSectionRepository'
+        // );
 
 
-        $this->app->bind(
-            'App\Repositories\Interfaces\CourseSectionResourceRepositoryInterface',
-            'App\Repositories\Eloquent\CourseSectionResourceRepository'
-        );
+        // $this->app->bind(
+        //     'App\Repositories\Interfaces\CourseSectionResourceRepositoryInterface',
+        //     'App\Repositories\Eloquent\CourseSectionResourceRepository'
+        // );
 
         $this->app->bind(
             'App\Repositories\Interfaces\CountryRepositoryInterface',

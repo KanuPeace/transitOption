@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Repositories\Interfaces\AccountRepositoryInterface;
 use App\Repositories\Interfaces\BankAccountRepositoryInterface;
-use App\Repositories\Interfaces\CourseRepositoryInterface;
+// use App\Repositories\Interfaces\CourseRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\CourseSectionResourceRepositoryInterface;
 use App\Repositories\Interfaces\AdminLogRepositoryInterface;
@@ -55,13 +55,13 @@ trait ModelIndex
         PostCategoryRepositoryInterface $postCategoryRepositoryInterface,
         PostCommentRepositoryInterface $postCommentRepositoryInterface,
         PostRepositoryInterface $postRepositoryInterface,
-        CourseRepositoryInterface $courseRepositoryInterface ,
+        // CourseRepositoryInterface $courseRepositoryInterface ,
         // CouponRepositoryInterface $couponRepositoryInterface ,
         // BankAccountRepositoryInterface $bankAccountRepositoryInterface ,
         // AccountRepositoryInterface $accountRepositoryInterface ,
-        CourseCategoryRepositoryInterface $courseCategoryRepositoryInterface ,
-        CourseSectionRepositoryInterface $courseSectionRepositoryInterface ,
-        CourseSectionResourceRepositoryInterface $courseSectioResourceRepositoryInterface,
+        // CourseCategoryRepositoryInterface $courseCategoryRepositoryInterface ,
+        // CourseSectionRepositoryInterface $courseSectionRepositoryInterface ,
+        // CourseSectionResourceRepositoryInterface $courseSectioResourceRepositoryInterface,
         ReferralRepositoryInterface $referralRepositoryInterface
         // AgentRepositoryInterface $agentRepositoryInterface ,
         // AgentCourseRepositoryInterface $agentCourseRepositoryInterface ,
@@ -81,13 +81,13 @@ trait ModelIndex
         $this->PostCategory = $postCategoryRepositoryInterface;
         $this->PostComment = $postCommentRepositoryInterface;
         $this->Post = $postRepositoryInterface;
-        $this->Course = $courseRepositoryInterface;
+        // $this->Course = $courseRepositoryInterface;
         // $this->Coupon = $couponRepositoryInterface;
         // $this->BankAccount = $bankAccountRepositoryInterface;
         // $this->Account = $accountRepositoryInterface;
-        $this->CourseCategory = $courseCategoryRepositoryInterface;
-        $this->CourseSection = $courseSectionRepositoryInterface;
-        $this->CourseSectionResource = $courseSectioResourceRepositoryInterface;
+        // $this->CourseCategory = $courseCategoryRepositoryInterface;
+        // $this->CourseSection = $courseSectionRepositoryInterface;
+        // $this->CourseSectionResource = $courseSectioResourceRepositoryInterface;
         $this->Referral = $referralRepositoryInterface;
         // $this->Agent = $agentRepositoryInterface;
         // $this->AgentCourse = $agentCourseRepositoryInterface;

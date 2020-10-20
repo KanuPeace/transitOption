@@ -13,20 +13,20 @@ class HomeController extends Controller
 {
 
     public function index(){
-        $count = [
-            'users' => $this->User->model()->count(),
-            'posts' => $this->Post->model()->count(),
-            'courses' => $this->Course->model()->count(),
-            'orders' => Order::count(),
-            'instructors' => $this->User->model()->where('role' , $this->instructorRole)->count(),
-            'bloggers' => $this->User->model()->where('role' , $this->bloggerRole)->count(),
-            'plans' =>Plan::count(),
-            'signals' =>Signal::count(),
-        ];
+        // $count = [
+        //     'users' => $this->User->model()->count(),
+        //     'posts' => $this->Post->model()->count(),
+        //     'courses' => $this->Course->model()->count(),
+        //     'orders' => Order::count(),
+        //     'instructors' => $this->User->model()->where('role' , $this->instructorRole)->count(),
+        //     'bloggers' => $this->User->model()->where('role' , $this->bloggerRole)->count(),
+        //     'plans' =>Plan::count(),
+        //     'signals' =>Signal::count(),
+        // ];
 
-        $recentCourses = $this->Course->model()->orderby('created_at' , 'desc')->limit(10)->get();
-        $recentPosts = $this->Post->model()->orderby('created_at' , 'desc')->limit(10)->get();
-        return view('admin.home' , compact('recentCourses' , 'recentPosts' , 'count'));
+        // $recentCourses = $this->Course->model()->orderby('created_at' , 'desc')->limit(10)->get();
+        // $recentPosts = $this->Post->model()->orderby('created_at' , 'desc')->limit(10)->get();
+        return view('admin.home');
     }
 
     public function referrals(){

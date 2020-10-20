@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*',function($view){
             $view->with([
 
+                'favicon_img' => url('/').env('ASSET_URL').'/logo.png',
                 'logo_img' => url('/').env('ASSET_URL').'/logo.png',
                 'web_source' => url('/').env('ASSET_URL').'/web',
                 'admin_source' => url('/').env('ASSET_URL').'/dashboard',

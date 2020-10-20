@@ -42,7 +42,7 @@ class HomeController extends Controller
         if($user->role == $this->instructorRole && $user->status == 1){  //if user is a Agent
             return redirect()->route('instructors.instructor_dashboard')->with('success_msg',$success_msg )->with('error_msg', $error_msg );
         }
-        return redirect('/');
+        return redirect()->route('admin.dashboard');
 
     }
 

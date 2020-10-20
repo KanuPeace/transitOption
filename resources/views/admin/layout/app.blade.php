@@ -104,7 +104,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="/">LearnBtcTrade {{auth('web')->user()->getRole()}}</a>
+                <a class="navbar-brand" href="/">Transit Option {{auth('web')->user()->getRole()}}</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -251,7 +251,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                        <li><a href="{{ route('edit.profile')}}"><i class="material-icons">person</i>Edit Profile</a></li>
+                        {{-- <li><a href="{{ route('admin.edit.profile')}}"><i class="material-icons">person</i>Edit Profile</a></li> --}}
                             <li role="separator" class="divider"></li>
                             <li><a href="javascript:void(0);" onclick=" document.getElementById('logout-form').submit();"><i class="material-icons">input</i>Sign Out</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
@@ -271,86 +271,86 @@
                         </a>
                     </li>
 
-                    <li class="{{$activeGroup == 'blog' ? 'active' : ''}}">
+                    {{-- <li class="{{$activeGroup == 'blog' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">devices</i>
                             <span>Blog</span>
                         </a>
                         <ul class="ml-menu">
                             <li class="{{$activePage == 'category' ? 'active' : ''}}">
-                                <a href="{{ route('blog.categories.index') }}">Blog Categories</a>
+                                <a href="{{ route('admin.blog.categories.index') }}">Blog Categories</a>
                             </li>
                             <li class="{{$activePage == 'post' ? 'active' : ''}}">
-                                <a href="{{ route('blog.posts.index') }}">Blog Posts</a>
+                                <a href="{{ route('admin.blog.posts.index') }}">Blog Posts</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
-                    <li class="{{$activeGroup == 'course' ? 'active' : ''}}">
+                    {{-- <li class="{{$activeGroup == 'course' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">book</i>
                             <span>Courses</span>
                         </a>
                         <ul class="ml-menu">
                             <li class="{{$activePage == 'course_category' ? 'active' : ''}}">
-                                <a href="{{ route('course.categories.index') }}">Course Categories</a>
+                                <a href="{{ route('admin.course.categories.index') }}">Course Categories</a>
                             </li>
                             <li class="{{$activePage == 'course_all' ? 'active' : ''}}">
-                                <a href="{{ route('course.details.index') }}">Course Details</a>
+                                <a href="{{ route('admin.course.details.index') }}">Course Details</a>
                             </li>
                             <li class="{{$activePage == 'assignments' ? 'active' : ''}}">
-                                <a href="{{ route('course.assignments.index') }}">Course Assignments</a>
+                                <a href="{{ route('admin.course.assignments.index') }}">Course Assignments</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
-                    <li class="{{$activePage == 'bloggers' ? 'active' : ''}}">
-                        <a href="{{ route('bloggers.index') }}">
+                    {{-- <li class="{{$activePage == 'bloggers' ? 'active' : ''}}">
+                        <a href="{{ route('admin.bloggers.index') }}">
                             <i class="material-icons">home</i>
                             <span>Bloggers</span>
                         </a>
-                    </li>
+                    </li> --}}
 
 
-                    <li class="{{$activeGroup == 'instructors' ? 'active' : ''}}">
+                    {{-- <li class="{{$activeGroup == 'instructors' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">supervisor_account</i>
                             <span>Instructors</span>
                         </a>
                         <ul class="ml-menu">
                             <li class="{{$activePage == 'all' ? 'active' : ''}}">
-                                <a href="{{ route('instructors.index') }}">All Instructors</a>
+                                <a href="{{ route('admin.instructors.index') }}">All Instructors</a>
                             </li>
                             <li class="{{$activePage == 'requests' ? 'active' : ''}}">
-                                <a href="{{ route('instructors.requests') }}">Instructor Requests</a>
+                                <a href="{{ route('admin.instructors.requests') }}">Instructor Requests</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
 
-                    <li class="{{$activeGroup == 'users_management' ? 'active' : ''}}">
+                    {{-- <li class="{{$activeGroup == 'users_management' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">person</i>
                             <span>Users</span>
                         </a>
                         <ul class="ml-menu">
                             <li class="{{$activePage == 'sub_admins' ? 'active' : ''}}">
-                                <a href="{{ route('users.index') }}">All Users</a>
+                                <a href="{{ route('admin.users.index') }}">All Users</a>
                             </li>
                             <li class="{{$activePage == 'agents' ? 'active' : ''}}">
-                                <a href="{{ route('users.enrolled') }}">Enrolled Users</a>
+                                <a href="{{ route('admin.users.enrolled') }}">Enrolled Users</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
-                    <li class="{{$activePage == 'orders' ? 'active' : ''}}">
-                        <a href="{{ route('orders.index') }}">
+                    {{-- <li class="{{$activePage == 'orders' ? 'active' : ''}}">
+                        <a href="{{ route('admin.orders.index') }}">
                             <i class="material-icons">shopping_cart</i>
                             <span>Orders</span>
                         </a>
-                    </li>
+                    </li> --}}
 
-
+{{-- 
                     <li class="{{$activeGroup == 'services' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">store</i>
@@ -358,43 +358,43 @@
                         </a>
                         <ul class="ml-menu">
                             <li class="{{$activePage == 'plans' ? 'active' : ''}}">
-                                <a href="{{ route('service.plans.index') }}">Plans</a>
+                                <a href="{{ route('admin.service.plans.index') }}">Plans</a>
                             </li>
                             <li class="{{$activePage == 'subscriptions' ? 'active' : ''}}">
-                                <a href="{{ route('service.subscriptions.index') }}">Plan Subcriptions</a>
+                                <a href="{{ route('admin.service.subscriptions.index') }}">Plan Subcriptions</a>
                             </li>
 
                             {{-- <li class="{{$activePage == 'signal_updates' ? 'active' : ''}}">
                                 <a href="#">Signal Updates</a>
                             </li> --}}
                         </ul>
-                    </li>
+                    </li> --}}
 
-                    <li class="{{$activeGroup == 'withdrawals' ? 'active' : ''}}">
+                    {{-- <li class="{{$activeGroup == 'withdrawals' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">store</i>
                             <span>Withdrawals</span>
                         </a>
                         <ul class="ml-menu">
                             <li class="{{$activePage == 'paid' ? 'active' : ''}}">
-                                <a href="{{ route('withdrawals.index') }}">Paid</a>
+                                <a href="{{ route('admin.withdrawals.index') }}">Paid</a>
                             </li>
                             <li class="{{$activePage == 'pending' ? 'active' : ''}}">
-                                <a href="{{ route('pending_withdrawals') }}">Pending</a>
+                                <a href="{{ route('admin.pending_withdrawals') }}">Pending</a>
                             </li>
 
                             {{-- <li class="{{$activePage == 'signal_updates' ? 'active' : ''}}">
                                 <a href="#">Signal Updates</a>
                             </li> --}}
                         </ul>
-                    </li>
+                    </li> --}}
 
 
 
                     <li class="header">INTERACTIONS</li>
 {{--
                     <li class="{{$activeGroup == 'adverts' ? 'active' : ''}}">
-                        <a href="{{ route('adverts.index') }}">
+                        <a href="{{ route('admin.adverts.index') }}">
                             <i class="material-icons col-amber">rss_feed</i>
                             <span>Advertisements</span>
                         </a>
@@ -407,28 +407,28 @@
                     </li> --}}
 
                     <li class="{{$activeGroup == 'testimonials' ? 'active' : ''}}">
-                        <a href="{{ route('testimonials.index') }}">
+                        <a href="{{ route('admin.testimonials.index') }}">
                             <i class="material-icons col-amber">rss_feed</i>
                             <span>Testimonials</span>
                         </a>
                     </li>
 
                     <li class="{{$activeGroup == 'subscribers' ? 'active' : ''}}">
-                        <a href="{{ route('newsletters.index') }}">
+                        <a href="{{ route('admin.newsletters.index') }}">
                             <i class="material-icons col-light-green">volume_up</i>
                             <span>Newsletter Subscribers</span>
                         </a>
                     </li>
 
                     <li class="{{$activeGroup == 'referrals' ? 'active' : ''}}">
-                        <a href="{{ route('referrals.index') }}">
+                        <a href="{{ route('admin.referrals.index') }}">
                             <i class="material-icons col-red">volume_up</i>
                             <span>Referrals</span>
                         </a>
                     </li>
                     <hr>
                     {{-- <li class="{{$activeGroup == 'logs' ? 'active' : ''}}">
-                    <a href="{{ route('logs.index') }}">
+                    <a href="{{ route('admin.logs.index') }}">
                             <i class="material-icons col-red">donut_large</i>
                             <span>Logs</span>
                         </a>
@@ -439,7 +439,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2020 <a href="javascript:void(0);">LearnBtcTrade Ltd.</a>.
+                    &copy; 2020 <a href="javascript:void(0);">Transit Option Ltd.</a>.
                 </div>
             </div>
             <!-- #Footer -->
@@ -449,7 +449,7 @@
     </section>
 
     <section class="content">
-        @include('layouts.flash_message')
+        @include('admin.layout.flash_message')
         @yield('content')
     </section>
 

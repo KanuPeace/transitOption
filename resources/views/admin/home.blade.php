@@ -1,6 +1,6 @@
 @extends('admin.layout.app',[ 'pageTitle' =>  'Dashboard' , 'activeGroup'  => '', 'activePage' => 'dashboard'])
 @section('content')
-     <div class="container-fluid">
+     {{-- <div class="container-fluid">
         <!-- Hover Zoom Effect -->
         <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -213,5 +213,5 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 @stop
