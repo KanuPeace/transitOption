@@ -12,7 +12,7 @@
                             </h2>
                             <ul class="header-dropdown m-r--5 mt-4 md-mt-0">
                                 <li class="dropdown">
-                                    <a href="{{ route('blog.posts.edit' , $post->id) }}" class="btn btn-sm btn-outline-primary"> Edit Post</a>
+                                    <a href="{{ route('admin.blog.posts.edit' , $post->id) }}" class="btn btn-sm btn-outline-primary"> Edit Post</a>
                                 </li>
                             </ul>
                         </div>

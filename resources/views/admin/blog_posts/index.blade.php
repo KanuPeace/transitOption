@@ -12,7 +12,7 @@
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
-                                    <a href="{{ route('blog.posts.create') }}" class="btn btn-sm btn-outline-primary"> New Post</a>
+                                    <a href="{{ route('admin.blog.posts.create') }}" class="btn btn-sm btn-outline-primary"> New Post</a>
                                 </li>
                             </ul>
                         </div>
@@ -56,13 +56,13 @@
                                             <td>{{$post->getStatus()}}</td>
                                             <td>{{$post->created_at->format('M D d, Y')}}</td>
                                             <td>
-                                                <form  action="{{ route('blog.posts.destroy',$post) }}" method="POST">
+                                                <form  action="{{ route('admin.blog.posts.destroy',$post) }}" method="POST">
                                                     @method('delete')
                                                     @csrf
-                                                    <a href="{{ route('blog.posts.show',$post) }}" class="btn btn-info sm">
+                                                    <a href="{{ route('admin.blog.posts.show',$post) }}" class="btn btn-info sm">
                                                         <i class="material-icons">remove_red_eye</i>
                                                     </a>
-                                                    <a href="{{ route('blog.posts.edit',$post) }}" class="btn btn-success sm">
+                                                    <a href="{{ route('admin.blog.posts.edit',$post) }}" class="btn btn-success sm">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                     <button type="submit" class="btn btn-danger xs"  onclick=" return confirm('Are you sure you want to delete this item? All comments would also be deleted!');">

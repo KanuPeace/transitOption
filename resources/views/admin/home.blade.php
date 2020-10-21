@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a href="{{ route('blog.posts.index') }}">
+                <a href="{{ route('admin.blog.posts.index') }}">
                     <div class="info-box hover-zoom-effect">
                         <div class="icon bg-blue">
                             <i class="material-icons">devices</i>
@@ -173,7 +173,7 @@
                                                     <th scope="row">{{$i}}</th>
                                                     <td>{{ $post->title }}</td>
                                                     <td>
-                                                        <a href="{{ route('blog.posts.show',$post) }}" class="btn btn-info sm">
+                                                        <a href="{{ route('admin.blog.posts.show',$post) }}" class="btn btn-info sm">
                                                             <i class="material-icons">remove_red_eye</i>
                                                         </a>
                                                     </td>

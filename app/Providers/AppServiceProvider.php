@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Traits\Constants;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    use Constants;
     /**
      * Register any application services.
      *
@@ -32,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
                 'logo_img' => url('/').env('ASSET_URL').'/logo.png',
                 'web_source' => url('/').env('ASSET_URL').'/web',
                 'admin_source' => url('/').env('ASSET_URL').'/dashboard',
+                'activeStatus' => $this->activeStatus,
+                'inactiveStatus' => $this->inactiveStatus,
             ]);
         });
     }

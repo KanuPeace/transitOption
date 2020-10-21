@@ -31,7 +31,7 @@
                                 <div role="tabpanel" class="tab-pane fade in active show" id="home">
                                     <div class="panel panel-default panel-post container">
 
-                                        <form action="{{ route('blog.posts.store')}}" method="post" enctype="multipart/form-data">@csrf
+                                        <form action="{{ route('admin.blog.posts.store')}}" method="post" enctype="multipart/form-data">@csrf
                                             <div class="row">
 
 

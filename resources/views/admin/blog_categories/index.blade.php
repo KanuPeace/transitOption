@@ -12,7 +12,7 @@
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
-                                    <a href="{{ route('blog.categories.create') }}" class="btn btn-sm btn-outline-primary"> New Category</a>
+                                    <a href="{{ route('admin.blog.categories.create') }}" class="btn btn-sm btn-outline-primary"> New Category</a>
                                 </li>
                             </ul>
                         </div>
@@ -42,17 +42,17 @@
                                             <td>{{$i}}</td>
                                             {{-- <td><img src="{{$category->title}}" alt="image"></td> --}}
                                             <td>{{$category->title}}</td>
-                                            <td><a href="{{ route('blog.categories.show',$category) }}">{{$category->posts->count()}}</a></td>
+                                            <td><a href="{{ route('admin.blog.categories.show',$category) }}">{{$category->posts->count()}}</a></td>
                                             <td>{{$category->getStatus()}}</td>
                                             <td>{{$category->created_at->format('M D d, Y')}}</td>
                                             <td>
-                                                <form  action="{{ route('blog.categories.destroy',$category) }}" method="POST">
+                                                <form  action="{{ route('admin.blog.categories.destroy',$category) }}" method="POST">
                                                     @method('delete')
                                                     @csrf
-                                                    <a href="{{ route('blog.categories.show',$category) }}" class="btn btn-info sm">
+                                                    <a href="{{ route('admin.blog.categories.show',$category) }}" class="btn btn-info sm">
                                                         <i class="material-icons">remove_red_eye</i>
                                                     </a>
-                                                    <a href="{{ route('blog.categories.edit',$category) }}" class="btn btn-success sm">
+                                                    <a href="{{ route('admin.blog.categories.edit',$category) }}" class="btn btn-success sm">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                     <button type="submit" class="btn btn-danger xs"  onclick=" return confirm('Are you sure you want to delete this item?');">

@@ -12,12 +12,12 @@
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
-                                    <a href="{{ route('blog.posts.index') }}" class="btn btn-sm btn-outline-primary"> Back to list</a>
+                                    <a href="{{ route('admin.blog.posts.index') }}" class="btn btn-sm btn-outline-primary"> Back to list</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="body">
-                            <form action="{{ route('blog.posts.store')}}" method="post" enctype="multipart/form-data">@csrf
+                            <form action="{{ route('admin.blog.posts.store')}}" method="post" enctype="multipart/form-data">@csrf
                                 <div class="row">
 
 

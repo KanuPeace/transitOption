@@ -12,12 +12,12 @@
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
-                                    <a href="{{ route('blog.categories.index') }}" class="btn btn-sm btn-outline-primary"> Back to list</a>
+                                    <a href="{{ route('admin.blog.categories.index') }}" class="btn btn-sm btn-outline-primary"> Back to list</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="body">
-                            <form action="{{ route('blog.categories.update' , $category->id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.blog.categories.update' , $category->id)}}" method="post" enctype="multipart/form-data">
                                 @method('Put')
                                 @csrf
                                 <div class="row">

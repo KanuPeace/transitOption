@@ -44,7 +44,7 @@ class BlogPostController extends Controller
         $data['slug'] = Str::slug($data['title']);
         $data['user_id'] = auth('web')->user()->id;
         $this->Post->create($data);
-        return redirect()->route('blog.posts.index')->with('success_msg', 'Blog post created successfully!');
+        return redirect()->route('admin.blog.posts.index')->with('success_msg', 'Blog post created successfully!');
     }
 
 
@@ -132,7 +132,7 @@ class BlogPostController extends Controller
         }
         $data['slug'] = Str::slug($data['title']);
         $this->Post->update($post->id ,$data);
-        return redirect()->route('blog.posts.show',$post)->with('success_msg', 'Blog Post updated successfully!');
+        return redirect()->route('admin.blog.posts.show',$post)->with('success_msg', 'Blog Post updated successfully!');
     }
 
     /**
