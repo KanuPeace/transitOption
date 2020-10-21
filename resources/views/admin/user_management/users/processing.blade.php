@@ -54,7 +54,7 @@
                                             <td>{{$user->account_no}}</td>
                                             <td>NGN {{$user->wallet}}</td>
                                             <td>{{$user->getStatus()}}</td>
-                                            <td><a href="{{ route('users.show',$user) }}" class="btn btn-outline-primary sm">More Info</a></td>
+                                            <td><a href="{{ route('admin.users.show',$user) }}" class="btn btn-outline-primary sm">More Info</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

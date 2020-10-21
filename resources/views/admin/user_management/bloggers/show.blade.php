@@ -22,7 +22,7 @@
                                     </div>
                                     <div class="col-md-9">
                                         <p><b>Name:</b> <span>{{$blogger->fullName()}}</span></p>
-                                        <p><b>Profile:</b> <span><a href="{{route('users.show' , $blogger->id)}}" class="btn btn-primary btn-sm">View</a></span></p>
+                                        <p><b>Profile:</b> <span><a href="{{route('admin.users.show' , $blogger->id)}}" class="btn btn-primary btn-sm">View</a></span></p>
                                         <p><b>Total Posts:</b> <span>{{ $stats['posts']}}</span></p>
                                         <p><b>Total Likes:</b> <span>{{ $stats['likes']}}</span></p>
                                         <p><b>Total Comments:</b> <span>{{ $stats['comments']}}</span></p>

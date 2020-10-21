@@ -52,7 +52,7 @@
                                             <td>{{$user->country}}</td>
                                             <td>{{$user->state}}</td>
                                             <td>{{$user->getStatus()}}</td>
-                                            <td><a href="{{ route('users.show',$user) }}" class="btn btn-outline-primary sm">More Info</a></td>
+                                            <td><a href="{{ route('admin.users.show',$user) }}" class="btn btn-outline-primary sm">More Info</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

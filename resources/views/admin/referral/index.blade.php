@@ -28,8 +28,8 @@
                                         @foreach($referrals as $referral)
                                         <tr>
                                             <td></td>
-                                            <td><a href="{{ route('users.show',$referral->user_id) }}">{{$referral->user->fullName()}}</a></td>
-                                            <td><a href="{{ route('users.show',$referral->referrer_id) }}">{{$referral->referrer->fullName()}}</a></td>
+                                            <td><a href="{{ route('admin.users.show',$referral->user_id) }}">{{$referral->user->fullName()}}</a></td>
+                                            <td><a href="{{ route('admin.users.show',$referral->referrer_id) }}">{{$referral->referrer->fullName()}}</a></td>
                                             <td>{{ date('Y-m-d, h:i:A',strtotime($referral->created_at)) }}</td>
                                         </tr>
 

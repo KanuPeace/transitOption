@@ -328,20 +328,29 @@
                     </li> --}}
 
 
-                    {{-- <li class="{{$activeGroup == 'users_management' ? 'active' : ''}}">
+                    <li class="{{$activeGroup == 'users_management' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">person</i>
                             <span>Users</span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="{{$activePage == 'sub_admins' ? 'active' : ''}}">
+                            <li class="{{$activePage == 'users' ? 'active' : ''}}">
                                 <a href="{{ route('admin.users.index') }}">All Users</a>
                             </li>
+                            <li class="{{$activePage == 'customers' ? 'active' : ''}}">
+                                <a href="{{ route('admin.users.enrolled') }}">Customers</a>
+                            </li>
+                            <li class="{{$activePage == 'companies' ? 'active' : ''}}">
+                                <a href="{{ route('admin.users.enrolled') }}">Companies</a>
+                            </li>
                             <li class="{{$activePage == 'agents' ? 'active' : ''}}">
-                                <a href="{{ route('admin.users.enrolled') }}">Enrolled Users</a>
+                                <a href="{{ route('admin.users.enrolled') }}">Field Agents</a>
+                            </li>
+                            <li class="{{$activePage == 'sub_admins' ? 'active' : ''}}">
+                                <a href="{{ route('admin.users.enrolled') }}">Sub Admins</a>
                             </li>
                         </ul>
-                    </li> --}}
+                    </li>
 
                     {{-- <li class="{{$activePage == 'orders' ? 'active' : ''}}">
                         <a href="{{ route('admin.orders.index') }}">

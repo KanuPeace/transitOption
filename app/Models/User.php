@@ -66,4 +66,12 @@ class User extends Authenticatable
     public function getAvatar(){
         return '';
     }
+
+    public function fullName(){
+        return $this->name;
+    }
+
+    public function getStatus(){
+        return 'Active';
+    }
 }

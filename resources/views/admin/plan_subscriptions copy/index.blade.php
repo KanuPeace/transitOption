@@ -38,7 +38,7 @@
                                             <td>{{$i}}</td>
                                             {{-- <td><img src="{{$subscription->title}}" alt="image"></td> --}}
                                             <td><a href="{{ route('service.plans.show',$subscription->plan->id) }}">{{$subscription->plan->title }}</a></td>
-                                            <td><a href="{{ route('users.show',$subscription->user->id) }}">{{$subscription->user->name }}</a></td>
+                                            <td><a href="{{ route('admin.users.show',$subscription->user->id) }}">{{$subscription->user->name }}</a></td>
                                             <td>{{ format_money($subscription->price)}}</td>
                                             <td>{{$subscription->whatsapp_no }}</td>
                                             <td>{{$subscription->getStatus()}}</td>

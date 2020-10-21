@@ -40,7 +40,7 @@
                                             <td>{{$i}}</td>
                                             <td><a href="{{ route('service.plans.show',$subscription->plan->id) }}">{{$subscription->plan->title }}</a></td>
                                             <td>{{ format_money($subscription->orderItem->amount ?? '')}}</td>
-                                            <td><a href="{{ route('users.show',$subscription->user->id) }}">{{$subscription->user->fullName() }}</a></td>
+                                            <td><a href="{{ route('admin.users.show',$subscription->user->id) }}">{{$subscription->user->fullName() }}</a></td>
                                             <td>{{$subscription->phone_no }}</td>
                                             <td>{{ date('M d, Y h:i:a', strtotime($subscription->start))}}</td>
                                             <td>{{ $subscription->stop == 'Lifetime' ? 'Lifetime' : date('M d, Y h:i:a', strtotime($subscription->stop))}}</td>

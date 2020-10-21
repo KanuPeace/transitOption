@@ -4,7 +4,7 @@
         <!-- Hover Zoom Effect -->
         <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a href="{{ route('users.index') }}">
+                <a href="{{ route('admin.users.index') }}">
                     <div class="info-box hover-zoom-effect">
                         <div class="icon bg-green">
                             <i class="material-icons">person</i>

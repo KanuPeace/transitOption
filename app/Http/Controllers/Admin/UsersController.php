@@ -66,13 +66,11 @@ class UsersController extends Controller
         // $withdrawalRequests = $this->Withdrawal->model()->where('user_id',$user->id)->orderby('created_at','desc')->get();
         // $activities = $this->Activity->model()->where('user_id',$user->id)->orderby('created_at','desc')->get();
 
-        $orders = Order::where('user_id' , $user->id)->orderby('created_at','desc')->get();
-        $orderedItems = OrderItem::where('user_id' , $user->id)->orderby('created_at','desc')->get();
         $referrals = $this->Referral->model()->where('referrer_id',$user->id)->orderby('created_at','desc')->get();
 
 
 
-        return view('admin.user_management.users.user_info',compact('referrals','orderedItems','user','orders'));
+        return view('admin.user_management.users.user_info',compact('referrals','user'));
     }
 
     /**
