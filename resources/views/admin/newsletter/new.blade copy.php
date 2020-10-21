@@ -17,12 +17,12 @@
                 @endif
         <div class="row">
               <div class="col-md-12 text-right">
-                  <a href="{{route('newsletters.index')}}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                  <a href="{{route('admin.newsletters.index')}}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
               </div>
           </div>
         <div class="row ">
             <div class="col-md-12">
-            <form action="{{ route('newsletters.send') }}" id="newsletter_form" method="post" enctype="multipart/form-data"> @csrf @method('post')
+            <form action="{{ route('admin.newsletters.send') }}" id="newsletter_form" method="post" enctype="multipart/form-data"> @csrf @method('post')
                 <div class="card">
                     <div class="body">
                         <div>

@@ -1,4 +1,4 @@
-@extends('admin.layout.app',[ 'pageTitle' =>  'Course Section Information' , 'activeGroup'  => 'course', 'activePage' => 'course_all'])
+@extends('admin.layout.app',[ 'pageTitle' =>  'New Newsletter' , 'activeGroup'  => 'course', 'activePage' => 'course_all'])
 @section('content')
      <div class="container-fluid">
 
@@ -25,7 +25,7 @@
 
                                             <div class="panel-body">
                                                 <div class="body">
-                                                    <form action="{{ route('newsletters.send')}}" id="NewsForm" method="post" enctype="multipart/form-data">@csrf
+                                                    <form action="{{ route('admin.newsletters.send')}}" id="NewsForm" method="post" enctype="multipart/form-data">@csrf
                                                         <div class="row">
 
                                                             <input type="hidden" name="recipients" required id="recipientsValue" value="">

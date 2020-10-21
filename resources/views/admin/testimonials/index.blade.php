@@ -1,4 +1,4 @@
-@extends('admin.layout.app',[ 'pageTitle' =>  'Student Testimonials' , 'activeGroup'  => 'testimonials', 'activePage' => ''])
+@extends('admin.layout.app',[ 'pageTitle' =>  'Customer Testimonials' , 'activeGroup'  => 'testimonials', 'activePage' => ''])
 @section('content')
      <div class="container-fluid">
 
@@ -42,7 +42,7 @@
                                             <td>{{$testimonial->getStatus()}}</td>
                                             <td>{{ date('Y-m-d, h:i:A',strtotime($testimonial->created_at)) }}</td>
                                             <td>
-                                                <form  action="{{ route('testimonials.destroy',$testimonial) }}" method="POST">
+                                                <form  action="{{ route('admin.testimonials.destroy',$testimonial) }}" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <a href="#" class="btn btn-info sm"  data-toggle="modal" data-target="#edit_item_{{$testimonial->id}}">
@@ -64,7 +64,7 @@
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Edit Item</h4>
                                                     </div>
-                                                <form action="{{ route('testimonials.update' , $testimonial) }}" method="post" enctype="multipart/form-data">
+                                                <form action="{{ route('admin.testimonials.update' , $testimonial) }}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('put')
                                                     <div class="modal-body">
@@ -83,7 +83,7 @@
                                                             <div class="form-group" id="title">
                                                                 <div class="form-line">
                                                                     <label for="">Title</label>
-                                                                    <input type="text" name="title" class="form-control" required placeholder="e.g Student" value="{{ $testimonial->title }}">
+                                                                    <input type="text" name="title" class="form-control" required placeholder="e.g Person`s title" value="{{ $testimonial->title }}">
                                                                 </div>
                                                                 @error('title')
                                                                     <span class="invalid-feedback" role="alert">
@@ -175,7 +175,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">New Item</h4>
                     </div>
-                <form action="{{ route('testimonials.store') }}" method="post" enctype="multipart/form-data">@csrf
+                <form action="{{ route('admin.testimonials.store') }}" method="post" enctype="multipart/form-data">@csrf
                     <div class="modal-body">
                             <div class="form-group" id="name">
                                 <div class="form-line">
@@ -192,7 +192,7 @@
                             <div class="form-group" id="title">
                                 <div class="form-line">
                                     <label for="">Title</label>
-                                    <input type="text" name="title" class="form-control" required placeholder="e.g Student" value="{{ old('title')}}">
+                                    <input type="text" name="title" class="form-control" required placeholder="e.g Person`s title" value="{{ old('title')}}">
                                 </div>
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">

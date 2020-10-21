@@ -271,6 +271,24 @@
                         </a>
                     </li>
 
+                    <li class="{{$activeGroup == 'applications' ? 'active' : ''}}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">store</i>
+                            <span>Applications</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="{{$activePage == 'pending' ? 'active' : ''}}">
+                                <a href="">Pending</a>
+                            </li>
+                            <li class="{{$activePage == 'processing' ? 'active' : ''}}">
+                                <a href="">Processing</a>
+                            </li>
+                            <li class="{{$activePage == 'verified' ? 'active' : ''}}">
+                                <a href="#">Verified</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="{{$activeGroup == 'blog' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">devices</i>
@@ -285,48 +303,6 @@
                             </li>
                         </ul>
                     </li>
-
-                    {{-- <li class="{{$activeGroup == 'course' ? 'active' : ''}}">
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">book</i>
-                            <span>Courses</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li class="{{$activePage == 'course_category' ? 'active' : ''}}">
-                                <a href="{{ route('admin.course.categories.index') }}">Course Categories</a>
-                            </li>
-                            <li class="{{$activePage == 'course_all' ? 'active' : ''}}">
-                                <a href="{{ route('admin.course.details.index') }}">Course Details</a>
-                            </li>
-                            <li class="{{$activePage == 'assignments' ? 'active' : ''}}">
-                                <a href="{{ route('admin.course.assignments.index') }}">Course Assignments</a>
-                            </li>
-                        </ul>
-                    </li> --}}
-
-                    {{-- <li class="{{$activePage == 'bloggers' ? 'active' : ''}}">
-                        <a href="{{ route('admin.bloggers.index') }}">
-                            <i class="material-icons">home</i>
-                            <span>Bloggers</span>
-                        </a>
-                    </li> --}}
-
-
-                    {{-- <li class="{{$activeGroup == 'instructors' ? 'active' : ''}}">
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">supervisor_account</i>
-                            <span>Instructors</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li class="{{$activePage == 'all' ? 'active' : ''}}">
-                                <a href="{{ route('admin.instructors.index') }}">All Instructors</a>
-                            </li>
-                            <li class="{{$activePage == 'requests' ? 'active' : ''}}">
-                                <a href="{{ route('admin.instructors.requests') }}">Instructor Requests</a>
-                            </li>
-                        </ul>
-                    </li> --}}
-
 
                     <li class="{{$activeGroup == 'users_management' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
@@ -352,32 +328,44 @@
                         </ul>
                     </li>
 
-                    {{-- <li class="{{$activePage == 'orders' ? 'active' : ''}}">
-                        <a href="{{ route('admin.orders.index') }}">
-                            <i class="material-icons">shopping_cart</i>
-                            <span>Orders</span>
-                        </a>
-                    </li> --}}
-
-{{-- 
-                    <li class="{{$activeGroup == 'services' ? 'active' : ''}}">
+                    <li class="{{$activeGroup == 'travels' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">store</i>
-                            <span>Services</span>
+                            <span>Travels</span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="{{$activePage == 'plans' ? 'active' : ''}}">
-                                <a href="{{ route('admin.service.plans.index') }}">Plans</a>
+                            <li class="{{$activePage == 'pending' ? 'active' : ''}}">
+                                <a href="">Plans</a>
                             </li>
-                            <li class="{{$activePage == 'subscriptions' ? 'active' : ''}}">
-                                <a href="{{ route('admin.service.subscriptions.index') }}">Plan Subcriptions</a>
+                            <li class="{{$activePage == 'active' ? 'active' : ''}}">
+                                <a href="">Active</a>
                             </li>
 
-                            {{-- <li class="{{$activePage == 'signal_updates' ? 'active' : ''}}">
-                                <a href="#">Signal Updates</a>
-                            </li> --}}
+                            <li class="{{$activePage == 'completed' ? 'active' : ''}}">
+                                <a href="#">Completed</a>
+                            </li>
                         </ul>
-                    </li> --}}
+                    </li>
+
+                    <li class="{{$activeGroup == 'transactions' ? 'active' : ''}}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">store</i>
+                            <span>Transactions</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="{{$activePage == 'payments' ? 'active' : ''}}">
+                                <a href="">Payments</a>
+                            </li>
+                            <li class="{{$activePage == 'refunds' ? 'active' : ''}}">
+                                <a href="">Refunds</a>
+                            </li>
+
+                            <li class="{{$activePage == 'withdrawals' ? 'active' : ''}}">
+                                <a href="#">Withdrawals</a>
+                            </li>
+                        </ul>
+                    </li>
+
 
                     {{-- <li class="{{$activeGroup == 'withdrawals' ? 'active' : ''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
@@ -392,17 +380,17 @@
                                 <a href="{{ route('admin.pending_withdrawals') }}">Pending</a>
                             </li>
 
-                            {{-- <li class="{{$activePage == 'signal_updates' ? 'active' : ''}}">
+                            <li class="{{$activePage == 'signal_updates' ? 'active' : ''}}">
                                 <a href="#">Signal Updates</a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </li> --}}
 
 
 
                     <li class="header">INTERACTIONS</li>
-{{--
-                    <li class="{{$activeGroup == 'adverts' ? 'active' : ''}}">
+
+                    {{-- <li class="{{$activeGroup == 'adverts' ? 'active' : ''}}">
                         <a href="{{ route('admin.adverts.index') }}">
                             <i class="material-icons col-amber">rss_feed</i>
                             <span>Advertisements</span>

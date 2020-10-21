@@ -12,7 +12,7 @@
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
-                                    <a href="{{ route('newsletters.create') }}" class="btn btn-sm btn-outline-primary"> New Letter</a>
+                                    <a href="{{ route('admin.newsletters.create') }}" class="btn btn-sm btn-outline-primary"> New Letter</a>
                                 </li>
                             </ul>
                         </div>
