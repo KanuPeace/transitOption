@@ -20,8 +20,9 @@
 		
 		<div class="wrap">
 			<div class="row">
+				<div class="col-md-3"></div>
 				<!--- Content -->
-				<div class="content one-half modal">
+				<div class="content one-half ">
 					<!--Login-->
 					<div class="box">
 					@include('web.includes.flash_message')

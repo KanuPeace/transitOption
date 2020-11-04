@@ -25,6 +25,11 @@ class WebController extends Controller
     }
 
 
+    public function read_file($file){
+        getFileFromPrivateStorage($file);
+    }
+
+
 
     public function sendContact(Request $request){
         if($request->isMethod('post')){

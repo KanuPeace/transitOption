@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Auth::routes();
 
 Route::namespace('App\Http\Controllers\Web')->group(function () {
     Route::get('/', 'WebController@index')->name('homepage');
@@ -27,6 +30,7 @@ Route::namespace('App\Http\Controllers\Web')->group(function () {
     Route::get('post/{id}/{slug}', 'WebController@blog_info')->name('blog_info');
     Route::post('make-comment', 'WebController@make_comment')->name('make_comment');
     Route::get('/share/{id}','WebController@share_post')->name('share_post');
+    Route::get('/file/{file}','WebController@read_file')->name('read_file');
     // Route::match(['post','get'],'/admin/login', 'AdminController@login')->name('Adminlogin');
     // Route::post('/contact-process','ContactController@store')->name('contact.store');
 });
@@ -37,6 +41,7 @@ Route::middleware(['auth:sanctum', 'verified'])->namespace('User')->prefix('cons
     Route::get('/dashboard')->name('dashboard');
 
 });
+
 
 Route::middleware(['auth:sanctum', 'verified'])->namespace('App\Http\Controllers\Admin')->prefix('admin')->as('admin.')->group(function (){
 

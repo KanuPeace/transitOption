@@ -83,7 +83,7 @@ function my_asset($path = null ){
 /**Gets file from public storage */
 function getFileFromStorage($fullpath , $storage = 'public'){
     if($storage == 'storage'){
-        return route('read_file',encrypt($fullpath));
+        return route('read_file',$fullpath);
     }
     return my_asset($fullpath);
 }

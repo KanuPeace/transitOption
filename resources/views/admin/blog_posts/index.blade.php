@@ -47,9 +47,7 @@
                                             <td>{{$post->title}}</td>
                                             <td>{!! $post->category->title !!}</td>
                                             <td>
-                                                <a href="{{ route('bloggers.show',$post->author->id) }}" title="See Author`s information">
-                                                    {{$post->author->fullName()}}
-                                                </a>
+                                                {{$post->author->fullName()}}
                                             </td>
                                             <td>{{$post->comments->count()}}</td>
                                             <td>{{$post->featured == 1 ? 'Yes' : 'No'}}</td>

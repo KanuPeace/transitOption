@@ -10,7 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -24,8 +24,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'fname',
+        'lname',
         'email',
+        'phone',
+        'counry_id',
+        'state_id',
+        'city_id',
+        'lga_id',
+        'address',
+        'gender',
+        'role',
+        'status',
         'password',
     ];
 

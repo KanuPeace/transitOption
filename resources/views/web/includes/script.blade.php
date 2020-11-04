@@ -1,12 +1,16 @@
 @livewireScripts
 <!-- jQuery -->
 <script src="{{ $web_source }}/js/jquery.min.js"></script>
+ <!-- Bootstrap Core Js -->
+ <script src="{{ $admin_source }}/plugins/bootstrap/js/bootstrap.js"></script>
+
 <script src="{{ $web_source }}/js/jquery.uniform.min.js"></script>
 <script src="{{ $web_source }}/js/jquery.slicknav.min.js"></script>
 <script src="{{ $web_source }}/js/wow.min.js"></script>
 <script src="{{ $web_source }}/js/jquery-ui-sliderAccess.js"></script>
 <script src="{{ $web_source }}/js/search.js"></script>
 <script src="{{ $web_source }}/js/scripts.js"></script>
+<script src="{{ $web_source }}/js/custom.js"></script>
 <!--custom js-->
 <script src="{{asset('toast')}}/jquery.toast.min.js"></script>
 
