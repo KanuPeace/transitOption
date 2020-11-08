@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\AppConstants;
 use App\Models\CourseReview;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -14,6 +15,61 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Request;
+
+/** Return valid api response */
+function problemResponse(string $message = null, int $status_code = null, Request $request = null, Exception $trace = null)
+{
+    $code = ($status_code != null) ? $status_code : '';
+    $traceMsg = empty($trace) ?  null  : $trace->getMessage();
+    $traceTrace = empty($trace) ?  null  : $trace->getTrace();
+
+	$body = [
+		'msg' => $message,
+		'code' => $code,
+		'success' => false,
+		'error_debug' => empty($trace) ?  null  : $trace->getMessage()
+	];
+
+	// if (!is_null($request)) {
+	// 	save_log($request, $body);
+	// 	if ($code == Constants::SERVER_ERR_CODE && !is_null($trace)) {
+	// 		$message = 'URL : ' . $request->fullUrl() .
+	// 			'<br /> METHOD: ' . $request->method() .
+	// 			'<br /> DATA_PARAM: ' . json_encode($request->all()) .
+	// 			'<br /> RESPONSE: ' . json_encode($body) .
+	// 			'<br /> Trace Message: ' . $traceMsg .
+	// 			'<br /> <b> Trace: ' . json_encode($traceTrace) . "</b>";
+
+	// 		$logable = ['server_error' => $message];
+	// 		Meta::newException($logable);
+	// 	}
+	// }
+
+	return response()->json($body)->setStatusCode($code);
+}
+
+/** Return valid api response */
+function validResponse(string $message = null, $data = null, $request = null)
+{
+	if(is_null($data) || empty($data))
+	{
+		$data = null;
+	}
+	$body = [
+		'msg' => $message,
+		'data' => $data,
+        'success' => true,
+		'code' => 200,
+
+	];
+
+	// if (!is_null($request)) {
+	// 	save_log($request, $body);
+	// }
+
+	return response()->json($body);
+}
 
 
 /** Returns a random alphanumeric token or number
@@ -485,4 +541,73 @@ function getFileType(String $type)
             'count' => number_format($count),
         ];
 
+    }
+
+
+
+    
+    function getUserProfileStatuses($user = null ,$current = false){
+        if(empty($user)){
+            $user = auth()->user();
+        }
+
+        $user_stats = [
+            "user_profile" => [
+                "key" => "user_profile",
+                "current" => null,
+                "status" => !empty($user->gender) && 
+                            !empty($user->country_id) && 
+                            !empty($user->state_id) && 
+                            !empty($user->city_id) && 
+                            // !empty($user->lga_id) && 
+                            // !empty($user->address) && 
+                            !empty($user->phone) ,
+                "title" => "Complete Profile",
+            ],
+
+            "next_kin" => [
+                "key" => "next_kin",
+                "current" => null,
+                "status" => !empty($user->kin),
+                "title" => "Next of Kin",
+            ],
+        ];
+
+        $company_stats = [
+            "company_profile" => [
+                "key" => "company_profile",
+                "current" => null,
+                "status" => !empty($user->kin),
+                "title" => "Company Profile",
+            ],
+        ];
+
+        $default_stats = [
+            "email" => [
+                "key" => "email",
+                "current" => null,
+                "status" => !empty($user->email_verified_at),
+                "title" => "Verify Email Address",
+            ],
+        ];
+
+        $statuses = array_merge(
+            $default_stats,
+            $user->role ==  AppConstants::DEFAULT_USER_TYPE ? $user_stats : [],
+            $user->role ==  AppConstants::COMPANY_USER_TYPE ? $company_stats : [],
+        );
+
+
+       if($current){
+            foreach($statuses as $key => $value){
+                if($value["status"] == false){
+                    return $statuses[$key];
+                }
+            }
+            $user->status = 1;
+            $user->save();
+            return true;
+       }
+
+        return $statuses;
     }

@@ -37,8 +37,16 @@ Route::namespace('App\Http\Controllers\Web')->group(function () {
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->namespace('User')->prefix('consumer')->as('user.')->group(function (){
-    Route::get('/dashboard')->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->namespace('App\Http\Controllers\User\Web')->prefix('consumer')->as('user.')->group(function (){
+    Route::prefix('profile')->as('profile.')->group(function () {
+        Route::match(['get', 'post'], '/complete', 'ProfileController@complete')->name('complete');
+        Route::match(['get', 'post'], '/next-of-kin', 'ProfileController@next_of_kin')->name('next_of_kin');
+    }); 
+
+    Route::middleware(["complete_profile"])->group(function () {
+        Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    }); 
+
 
 });
 

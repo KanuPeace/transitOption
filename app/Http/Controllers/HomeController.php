@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AppConstants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -33,16 +34,13 @@ class HomeController extends Controller
         $error_msg = Session::get('error_msg');
         // dd($error_msg);
 
-        if($user->role == $this->adminRole){  //if user is an admin
+        if($user->role == AppConstants::ADMIN_USER_TYPE){  //if user is an admin
             return redirect()->route('admin_dashboard')->with('success_msg', $success_msg)->with('error_msg', Session::get('error_msg'));
         }
-        if($user->role == $this->bloggerRole && $user->status == 1){  //if user is a blogger
-            return redirect()->route('blogger_dashboard')->with('success_msg',$success_msg )->with('error_msg', $error_msg );
-        }
-        if($user->role == $this->instructorRole && $user->status == 1){  //if user is a Agent
+        if($user->role == AppConstants::COMPANY_USER_TYPE && $user->status == AppConstants::PROFILE_COMPLETE){  //if user is a Agent
             return redirect()->route('instructors.instructor_dashboard')->with('success_msg',$success_msg )->with('error_msg', $error_msg );
         }
-        return redirect()->route('admin.dashboard');
+        return redirect()->route("user.dashboard");
 
     }
 

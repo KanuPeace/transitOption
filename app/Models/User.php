@@ -28,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'lname',
         'email',
         'phone',
-        'counry_id',
+        'country_id',
         'state_id',
         'city_id',
         'lga_id',
@@ -83,5 +83,21 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getStatus(){
         return 'Active';
+    }
+
+    public function country(){
+        return $this->belongsTo(Country::class , "country_id");
+    }
+
+    public function state(){
+        return $this->belongsTo(State::class , "state_id");
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class , "city_id");
+    }
+
+    public function kin(){
+        return $this->hasOne(NextOfKin::class , "user_id");
     }
 }

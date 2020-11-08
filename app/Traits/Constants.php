@@ -32,7 +32,7 @@ trait Constants
 
 
     /**
-     * Blogger Role
+     * Admin Role
      * @return int 5
      */
     public $adminRole = 5;
