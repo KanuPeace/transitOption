@@ -17,7 +17,7 @@
 						<div class="h3 mt-4 mb-2"><i>Terminal Information</i></div>
 						@include('web.includes.flash_message')
 							<div class="">
-								<form method="POST" action="{{ route("company.terminals.store") }}"> @csrf
+								<form method="POST" action="{{ route("company.terminals.update" , $terminal->id) }}"> @csrf @method("put")
 									<input type="hidden" name="company_id" id="" required value="{{ $company->id }}">
 										<div class="form-row p-3">
 											<div class="col-md-12 form-group">

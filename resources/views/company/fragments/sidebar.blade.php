@@ -2,7 +2,7 @@
     {{-- <div class=" head-title mt-3 mb-4">
         <img src="{{ $logo_img }}" alt="Transfers" width="150"/>
     </div> --}}
-        <a href="">
+        <a href="{{ route("company.dashboard") }}">
             <div class="card  p-3 m-3" >
                 <div class="msg_area">
                     Passenger Verification

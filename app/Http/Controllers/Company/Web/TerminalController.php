@@ -46,7 +46,30 @@ class TerminalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            "company_id" => "required|string|exists:companies,id",
+            "name" => "required|string",
+            "email" => "nullable|email",
+            "phones" => "required|string",
+            "address" => "required|string",
+            "country_id" => "required|string",
+            "state_id" => "required|string",
+            "city_id" => "nullable|string",
+            "lga_id" => "nullable|string",
+        ]);
+
+        $data["code"] = $this->generateCode($data["name"]);
+        Terminal::create($data);
+        return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal added successfully!");
+    }
+
+    private function generateCode($name){
+        $code = generateNameCode($name);
+        $check = Terminal::where("code" , $code)->count();
+        if($check > 0){
+            $this->generateCode($name);
+        }
+        return $code;
     }
 
     /**
@@ -68,7 +91,12 @@ class TerminalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $company = auth()->user()->company;
+        $terminal = Terminal::findorfail($id);
+        $countries = Country::orderby('name')->get();
+        $states = !empty($terminal->country_id) ?  State::where("country_id" , $terminal->country_id)->orderby('name')->get() : [];
+        $cities = !empty($terminal->state) ?  City::where("state_id" , $terminal->state_id)->orderby('name')->get() : [];
+        return view("company.terminals.edit" , compact('terminal' , 'company', "countries" , "states" , "cities"));
     }
 
     /**
@@ -80,7 +108,19 @@ class TerminalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            "name" => "required|string",
+            "email" => "nullable|email",
+            "phones" => "required|string",
+            "address" => "required|string",
+            "country_id" => "required|string",
+            "state_id" => "required|string",
+            "city_id" => "nullable|string",
+            "lga_id" => "nullable|string",
+        ]);
+
+        Terminal::findorfail($id)->update($data);
+        return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal updated successfully!");
     }
 
     /**
@@ -91,6 +131,7 @@ class TerminalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Terminal::findorfail($id)->delete();
+        return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal deleted successfully!");
     }
 }
