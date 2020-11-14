@@ -178,10 +178,10 @@ trait Constants
 
 
      /**
-     * Testimonial images file path
+     * Company Logo images file path
      * @return string
      */
-    public $testimonialImagePath = 'testimonials/avatars';
+    public $companyLogoImagePath = 'companies/logos';
 
     /**
      * Blog Post categories images file path

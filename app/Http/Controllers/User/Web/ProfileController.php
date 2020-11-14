@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Company;
 use App\Models\Country;
 use App\Models\NextOfKin;
 use App\Models\State;
@@ -19,16 +20,13 @@ class ProfileController extends Controller
         $currentStatus = getUserProfileStatuses($user , true);
 
         if(is_bool($currentStatus) && $currentStatus == true){
-            return "gg";
+            return redirect()->route("home");
         }
 
         $countries = Country::orderby('name')->get();
         $states = !empty($user->country_id) ?  State::where("country_id" , $user->country_id)->orderby('name')->get() : [];
         $cities = !empty($user->state) ?  City::where("state_id" , $user->state_id)->orderby('name')->get() : [];
         
-        // dump($currentStatus);
-        // dd($statuses);
-
         if($request->getMethod() == "GET"){
             return view("user.profile.complete" , compact("statuses" , "currentStatus" , "user" , "countries" , "states" , "cities"));
         }
@@ -77,6 +75,5 @@ class ProfileController extends Controller
        return redirect()->route("user.dashboard");
 
     }
-
 
 }

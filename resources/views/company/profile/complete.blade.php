@@ -165,7 +165,7 @@
 						@elseif($currentStatus["key"] == "company_profile")
 						<!--Next of Kin-->
 						<div class="">
-							<form method="POST" action="{{ route("company.profile.company_profile") }}"> @csrf
+							<form method="POST" action="{{ route("user.profile.company_profile") }}"> @csrf
 								<input type="hidden" name="status_key" id="" required value="{{ $currentStatus["key"] }}">
 									<div class="form-row p-3">
 

@@ -78,21 +78,32 @@ function validResponse(string $message = null, $data = null, $request = null)
  * @return String token
  */
 function getRandomToken($length , $typeInt = false){
-    if($typeInt == true){
+    if($typeInt){
         $token = Str::substr(rand(1000000000,9999999999), 0, $length) ;
     }
-    $token = "";
-    $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
-    $codeAlphabet.= "0123456789";
-    $max = strlen($codeAlphabet);
-
-    for ($i=0; $i < $length; $i++) {
-        $token .= $codeAlphabet[random_int(0, $max-1)];
+    else{
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+        $codeAlphabet.= "0123456789";
+        $max = strlen($codeAlphabet);
+    
+        for ($i=0; $i < $length; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max-1)];
+        }
     }
-
     return $token;
 }
+
+function generateNameCode($name){
+    $splitName = explode(' ' , $name);
+    $code = '';
+    foreach($splitName as $name){
+      $code.= strtoupper($name[0]);
+    }
+    $code.= getRandomToken(5 , true);
+    return $code;
+  }
 
 /**Puts file in a public storage */
 function putFileInStorage($file , $path ){
@@ -577,7 +588,7 @@ function getFileType(String $type)
             "company_profile" => [
                 "key" => "company_profile",
                 "current" => null,
-                "status" => !empty($user->kin),
+                "status" => !empty($user->company),
                 "title" => "Company Profile",
             ],
         ];

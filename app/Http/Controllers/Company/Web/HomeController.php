@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Web;
+namespace App\Http\Controllers\Company\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        return view("user.dashboard");
+        return view("company.dashboard");
     }
 }

@@ -38,7 +38,7 @@ class HomeController extends Controller
             return redirect()->route('admin_dashboard')->with('success_msg', $success_msg)->with('error_msg', Session::get('error_msg'));
         }
         if($user->role == AppConstants::COMPANY_USER_TYPE && $user->status == AppConstants::PROFILE_COMPLETE){  //if user is a Agent
-            return redirect()->route('instructors.instructor_dashboard')->with('success_msg',$success_msg )->with('error_msg', $error_msg );
+            return redirect()->route("company.dashboard")->with('success_msg',$success_msg )->with('error_msg', $error_msg );
         }
         return redirect()->route("user.dashboard");
 

@@ -37,18 +37,35 @@ Route::namespace('App\Http\Controllers\Web')->group(function () {
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
-Route::middleware(['auth:sanctum', 'verified'])->namespace('App\Http\Controllers\User\Web')->prefix('consumer')->as('user.')->group(function (){
-    Route::prefix('profile')->as('profile.')->group(function () {
-        Route::match(['get', 'post'], '/complete', 'ProfileController@complete')->name('complete');
-        Route::match(['get', 'post'], '/next-of-kin', 'ProfileController@next_of_kin')->name('next_of_kin');
+Route::middleware(['auth:sanctum', 'verified'])->group(function (){
+
+    Route::namespace('App\Http\Controllers\User\Web')->prefix('consumer')->as('user.')->group(function () {
+        Route::prefix('profile')->as('profile.')->group(function () {
+            Route::match(['get', 'post'], '/complete', 'ProfileController@complete')->name('complete');
+            Route::post('/next-of-kin', 'ProfileController@next_of_kin')->name('next_of_kin');
+        }); 
+
+        Route::middleware(["complete_profile"])->group(function () {
+            Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+        }); 
     }); 
 
-    Route::middleware(["complete_profile"])->group(function () {
-        Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+    Route::namespace('App\Http\Controllers\Company\Web')->prefix('company')->as('company.')->group(function () {
+        Route::prefix('profile')->as('profile.')->group(function () {
+            Route::post('/company-profile', 'ProfileController@company_profile')->name('company_profile');
+        }); 
+
+        Route::middleware(["complete_profile"])->group(function () {
+            Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+            Route::resource('/terminals', 'TerminalController');
+        }); 
     }); 
 
-
+    
 });
+
+
 
 
 Route::middleware(['auth:sanctum', 'verified'])->namespace('App\Http\Controllers\Admin')->prefix('admin')->as('admin.')->group(function (){

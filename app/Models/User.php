@@ -100,4 +100,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function kin(){
         return $this->hasOne(NextOfKin::class , "user_id");
     }
+
+    public function company(){
+        return $this->hasOne(Company::class , 'user_id');
+    }
+
 }
