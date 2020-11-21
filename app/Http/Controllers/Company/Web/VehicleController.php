@@ -8,9 +8,10 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\Terminal;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
-class TerminalController extends Controller
+class VehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class TerminalController extends Controller
      */
     public function index()
     {
-        $terminals = Terminal::where()->paginate(25);
+        $terminals = Vehicle::paginate(25);
         return view("company.terminals.index" , compact('terminals'));
     }
 

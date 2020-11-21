@@ -59,6 +59,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
         Route::middleware(["complete_profile"])->group(function () {
             Route::get('/dashboard', 'HomeController@index')->name('dashboard');
             Route::resource('/terminals', 'TerminalController');
+            Route::resource('/vehicles', 'TerminalController');
         }); 
     }); 
 
