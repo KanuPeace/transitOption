@@ -184,16 +184,16 @@ trait Constants
     public $companyLogoImagePath = 'companies/logos';
 
     /**
-     * Blog Post categories images file path
+     * Vehicle  images file path
      * @return string
      */
-    public $blogCategoryImagePath = 'images/blog/categories';
+    public $companyVehicleImagePath = 'images/vehicles';
 
     /**
      * Blog Post images file path
      * @return string
      */
-    public $blogPostsImagePath = 'images/blog/posts';
+    public $blogPostsImagePath = 'images/posts';
 
     /**
      * Course Categories images file path

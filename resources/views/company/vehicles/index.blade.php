@@ -39,7 +39,7 @@
 						<td>{{ $vehicle->created_at }}</td>
 						<td>
 							{{-- <form action="{{ route("company.vehicles.destroy" , $vehicle->id) }}" method="post">@csrf() @method("delete") --}}
-								<a href="{{ route("company.vehicles.edit" , $vehicle->id) }}" class="btn btn-sm btn-info">Edit</a>
+								<a href="{{ route("company.vehicles.images.index" , $vehicle->id) }}" class="btn btn-sm btn-info mb-2">Images</a>
 								<a href="{{ route("company.vehicles.edit" , $vehicle->id) }}" class="btn btn-sm btn-info">Edit</a>
 								{{-- <button class="btn btn-sm btn-danger">Delete</button> --}}
 							{{-- </form> --}}
