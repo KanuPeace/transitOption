@@ -16,11 +16,9 @@ class CreateVehicleSeatStylesTable extends Migration
         Schema::create('vehicle_seat_styles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id',false);
-            $table->string('code')->unique();
-            $table->string('name');
             $table->tinyInteger('width');
             $table->tinyInteger('length');
-            $table->string('order');
+            $table->string('empty_seats')->nullable();
             $table->string('theme')->nullable();
             $table->tinyInteger('use_count')->default(0);
             $table->timestamps();

@@ -15,6 +15,8 @@
                 <li><a href="{{ route('contactUs') }}" title="Contact">Contact</a></li>
                 @auth
                     <li><a href="{{ route('home') }}" title="Contact">Dashboard</a></li>
+                    <li><a href="#" onclick=" return $('#logout_form').trigger('submit'); " title="Contact">Logout</a></li>
+                    <form action="{{ route("logout") }}" id="logout_form" method="post">@csrf</form>
                 @else
                     <li><a href="{{ route('register') }}" title="Contact">Register</a></li>
                     <li><a href="{{ route('login') }}" title="Contact">Login</a></li>

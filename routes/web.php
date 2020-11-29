@@ -56,10 +56,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
             Route::post('/company-profile', 'ProfileController@company_profile')->name('company_profile');
         }); 
 
-        Route::middleware(["complete_profile"])->group(function () {
+        Route::middleware(["complete_profile"])->group(function () { 
             Route::get('/dashboard', 'HomeController@index')->name('dashboard');
             Route::resource('/terminals', 'TerminalController');
-            Route::resource('/vehicles', 'TerminalController');
+            Route::resource('/vehicles', 'VehicleController')->except("create");
+            Route::get('/vehicles/factory/steps-1', 'VehicleController@factoryStepsOne')->name('vehicles.factory.steps.one');
+            Route::post('/vehicles/factory/steps-1', 'VehicleController@postFactoryStepsOne')->name('vehicles.factory.steps.one');
+            Route::get('/vehicles/factory/steps-2', 'VehicleController@factoryStepsTwo')->name('vehicles.factory.steps.two');
+            Route::post('/vehicles/factory/steps-2', 'VehicleController@postFactoryStepsTwo')->name('vehicles.factory.steps.two');
+            Route::post('/vehicles/images/{id}', 'VehicleController@images')->name('vehicles.images');
         }); 
     }); 
 

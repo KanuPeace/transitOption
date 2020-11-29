@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TerminalRequest;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
@@ -19,7 +20,7 @@ class TerminalController extends Controller
      */
     public function index()
     {
-        $terminals = Terminal::where()->paginate(25);
+        $terminals = Terminal::where("company_id" , company()->id)->paginate(25);
         return view("company.terminals.index" , compact('terminals'));
     }
 
@@ -30,12 +31,11 @@ class TerminalController extends Controller
      */
     public function create()
     {
-        $company = auth()->user()->company;
         $terminal = new Terminal();
         $countries = Country::orderby('name')->get();
         $states = !empty($terminal->country_id) ?  State::where("country_id" , $terminal->country_id)->orderby('name')->get() : [];
         $cities = !empty($terminal->state) ?  City::where("state_id" , $terminal->state_id)->orderby('name')->get() : [];
-        return view("company.terminals.create" , compact('terminal' , 'company', "countries" , "states" , "cities"));
+        return view("company.terminals.create" , compact('terminal', "countries" , "states" , "cities"));
     }
 
     /**
@@ -44,21 +44,11 @@ class TerminalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TerminalRequest $request)
     {
-        $data = $request->validate([
-            "company_id" => "required|string|exists:companies,id",
-            "name" => "required|string",
-            "email" => "nullable|email",
-            "phones" => "required|string",
-            "address" => "required|string",
-            "country_id" => "required|string",
-            "state_id" => "required|string",
-            "city_id" => "nullable|string",
-            "lga_id" => "nullable|string",
-        ]);
-
+        $data = $request->validated();
         $data["code"] = $this->generateCode($data["name"]);
+        $data["company_id"] = company()->id;
         Terminal::create($data);
         return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal added successfully!");
     }
@@ -106,19 +96,9 @@ class TerminalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TerminalRequest $request, $id)
     {
-        $data = $request->validate([
-            "name" => "required|string",
-            "email" => "nullable|email",
-            "phones" => "required|string",
-            "address" => "required|string",
-            "country_id" => "required|string",
-            "state_id" => "required|string",
-            "city_id" => "nullable|string",
-            "lga_id" => "nullable|string",
-        ]);
-
+        $data = $request->validated();
         Terminal::findorfail($id)->update($data);
         return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal updated successfully!");
     }

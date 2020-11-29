@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Company\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VehicleRequest;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\Terminal;
 use App\Models\Vehicle;
+use App\Models\VehicleSeatStyle;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VehicleController extends Controller
 {
@@ -20,24 +24,57 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $terminals = Vehicle::paginate(25);
-        return view("company.terminals.index" , compact('terminals'));
+        $vehicles = Vehicle::where("company_id", company()->id)->paginate(25);
+        return view("company.vehicles.index", compact('vehicles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function factoryStepsOne(Request $request)
     {
-        $company = auth()->user()->company;
-        $terminal = new Terminal();
-        $countries = Country::orderby('name')->get();
-        $states = !empty($terminal->country_id) ?  State::where("country_id" , $terminal->country_id)->orderby('name')->get() : [];
-        $cities = !empty($terminal->state) ?  City::where("state_id" , $terminal->state_id)->orderby('name')->get() : [];
-        return view("company.terminals.create" , compact('terminal' , 'company', "countries" , "states" , "cities"));
+        $id = $request->id;
+        if (!empty($id)) {
+            $vehicle =  Vehicle::findorfail($id);
+        } else {
+            $vehicle = new Vehicle();
+        }
+        $terminals = Terminal::where("company_id", company()->id)->orderby("name")->get();
+        $step = $request->step ?? 0;
+        $requestData = collect($request->all());
+        $requestData = encrypt($requestData);
+        return view("company.vehicles.create", compact('vehicle', "terminals", "step", "requestData"));
     }
+
+
+    public function postFactoryStepsOne(VehicleRequest $request)
+    {
+        // dd($request->all());
+        $validatedData = $request->validated();
+        $validatedData["id"] = $request["id"];
+        // dd($validatedData);
+        $key = companyVehicleSessionDataKey();
+        $request->session()->put($key, $validatedData);
+        return redirect()->route("company.vehicles.factory.steps.two");
+    }
+
+    public function factoryStepsTwo(Request $request)
+    {
+        $key = companyVehicleSessionDataKey();
+        $requestData = $request->session()->get($key);
+        $id = $requestData["id"];
+        if (!empty($id)) {
+            $vehicle =  Vehicle::findorfail($id);
+        } else {
+            $vehicle = new Vehicle();
+        }
+        $step = 2;
+        $requestData = encrypt($requestData);
+        return view("company.vehicles.create", compact('vehicle', "step", "requestData"));
+    }
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -47,27 +84,39 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            "company_id" => "required|string|exists:companies,id",
-            "name" => "required|string",
-            "email" => "nullable|email",
-            "phones" => "required|string",
-            "address" => "required|string",
-            "country_id" => "required|string",
-            "state_id" => "required|string",
-            "city_id" => "nullable|string",
-            "lga_id" => "nullable|string",
+        $input = $request->all();
+        $prevData = decrypt($input["data"]);
+        unset($input["_token"]);
+        unset($input["data"]);
+        $input = array_merge($prevData, $input);
+        $req = new VehicleRequest($input);
+        $data = $req->validate($req->rules(), $input);
+
+        $more = $request->validate([
+            "width" => "required|string",
+            "empty_seats" => "nullable|string",
+            "length" => "required|string",
         ]);
 
+        $vehicleSeatStyle = VehicleSeatStyle::where($more)->first();
+        if (empty($vehicleSeatStyle)) {
+            $more["user_id"] = auth()->id();
+            $more["use_count"] = 1;
+            $vehicleSeatStyle = VehicleSeatStyle::create($more);
+        }
         $data["code"] = $this->generateCode($data["name"]);
-        Terminal::create($data);
-        return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal added successfully!");
+        $data["company_id"] = company()->id;
+        $data["vehicle_seat_style_id"] = $vehicleSeatStyle->id;
+        $data["no_of_seats"] = getSeatNumber($vehicleSeatStyle);
+        Vehicle::create($data);
+        return redirect()->route("company.vehicles.index")->with("success_msg", "Vehicle added successfully!");
     }
 
-    private function generateCode($name){
+    private function generateCode($name)
+    {
         $code = generateNameCode($name);
-        $check = Terminal::where("code" , $code)->count();
-        if($check > 0){
+        $check = Vehicle::where("code", $code)->count();
+        if ($check > 0) {
             $this->generateCode($name);
         }
         return $code;
@@ -90,14 +139,10 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $company = auth()->user()->company;
-        $terminal = Terminal::findorfail($id);
-        $countries = Country::orderby('name')->get();
-        $states = !empty($terminal->country_id) ?  State::where("country_id" , $terminal->country_id)->orderby('name')->get() : [];
-        $cities = !empty($terminal->state) ?  City::where("state_id" , $terminal->state_id)->orderby('name')->get() : [];
-        return view("company.terminals.edit" , compact('terminal' , 'company', "countries" , "states" , "cities"));
+        $request["id"] = $id;
+        return $this->factoryStepsOne($request);
     }
 
     /**
@@ -109,19 +154,38 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            "name" => "required|string",
-            "email" => "nullable|email",
-            "phones" => "required|string",
-            "address" => "required|string",
-            "country_id" => "required|string",
-            "state_id" => "required|string",
-            "city_id" => "nullable|string",
-            "lga_id" => "nullable|string",
-        ]);
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
+            $prevData = decrypt($input["data"]);
+            $id = $prevData["id"];
+            $req = new VehicleRequest($prevData);
+            $data = $req->validate($req->rules(), $prevData);
+            $more = $request->validate([
+                "width" => "required|string",
+                "empty_seats" => "nullable|string",
+                "length" => "required|string",
+            ]);
 
-        Terminal::findorfail($id)->update($data);
-        return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal updated successfully!");
+            $vehicleSeatStyle = VehicleSeatStyle::where($more)->first();
+            // dd($more);
+            if (empty($vehicleSeatStyle)) {
+                $more["user_id"] = auth()->id();
+                $more["use_count"] = 1;
+                $vehicleSeatStyle = VehicleSeatStyle::create($more);
+            }
+
+            $data["vehicle_seat_style_id"] = $vehicleSeatStyle->id;
+            $data["no_of_seats"] = getSeatNumber($vehicleSeatStyle);
+
+            Vehicle::findorfail($id)->update($data);
+            DB::commit();
+            return redirect()->route("company.vehicles.index")->with("success_msg", "Vehicle updated successfully!");
+        } catch (Exception $e) {
+            DB::rollback();
+            logError($e);
+            return redirect()->route("company.vehicles.index")->with("error_msg", "An error occurred");
+        }
     }
 
     /**
@@ -133,6 +197,6 @@ class VehicleController extends Controller
     public function destroy($id)
     {
         Terminal::findorfail($id)->delete();
-        return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal deleted successfully!");
+        return redirect()->route("company.terminals.index")->with("success_msg", "Terminal deleted successfully!");
     }
 }

@@ -10,14 +10,14 @@
             </div>
         </a>
         <a href="{{ route("company.terminals.index") }}">
-            <div class="card  p-3 m-3" {{ $activePage ?? '' == "terminal" ? 'selected_reg' : '' }}>
+            <div class="card  p-3 m-3" {{ $activePage ?? '' == "terminals" ? 'selected_reg' : '' }}>
                 <div class="msg_area">
                     Terminals
                 </div>
             </div>
         </a>
-        <a href="">
-            <div class="card  p-3 m-3" >
+        <a href="{{ route("company.vehicles.index") }}">
+            <div class="card  p-3 m-3" {{ $activePage ?? '' == "vehicles" ? 'selected_reg' : '' }}>
                 <div class="msg_area">
                     Vehicles
                 </div>

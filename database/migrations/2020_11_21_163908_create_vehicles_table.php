@@ -18,6 +18,7 @@ class CreateVehiclesTable extends Migration
             $table->unsignedBigInteger('company_id',false);
             $table->string('code')->unique();
             $table->string('name');
+            $table->decimal('price');
             $table->string('color');
             $table->tinyInteger('type');
             $table->tinyInteger('no_of_seats');
@@ -30,7 +31,11 @@ class CreateVehiclesTable extends Migration
             $table->string('driver_phones');
             $table->text('description')->nullable();
             $table->tinyinteger('condition')->default(1); //1 for New , 0 for fairly used
-            $table->tinyinteger('transload')->default(0);
+            $table->tinyinteger('is_transload')->default(0);
+            $table->tinyinteger('has_ac')->default(0);
+            $table->tinyinteger('is_priority')->default(0);
+            $table->tinyinteger('is_featured')->default(0);
+            $table->tinyinteger('is_available')->default(0);
             $table->tinyinteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

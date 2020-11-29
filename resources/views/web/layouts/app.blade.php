@@ -24,7 +24,35 @@
     </div>
     <!-- //Preloader -->
     @include('web.includes.header')
-    @yield('content')
+	@if ($pageType ?? '' == "auth")
+
+    <!-- Main -->
+	<main class="main auth_form" role="main">
+
+
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-md-3">
+                        @include("company.fragments.sidebar" , ["activePage" => $activePage ?? ""])    
+                    </div>
+
+                    
+                    <div class=" col-md-9">
+                        <div class="container card">
+                            @include('web.includes.flash_message')
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+       
+            
+        
+        </main>
+        <!-- //Main -->
+    @else
+        @yield('content')
+    @endif
     @include('web.includes.footer')
 
 <!--bottom to top button start-->
