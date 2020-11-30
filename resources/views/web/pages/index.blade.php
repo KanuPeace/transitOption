@@ -5,6 +5,7 @@
 		width: 100%;
 		height: 80vh;
 		background-size: cover;
+		background-position: center;
 		
 	}
 </style>
