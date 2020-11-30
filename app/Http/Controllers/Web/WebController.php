@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\VehicleImage;
 use Illuminate\Http\Request;
 
 class WebController extends Controller
 {
     public function index(){
-        
-        return view('web.pages.index');
+        $sliderImages = VehicleImage::whereHas("vehicle")->inRandomOrder()->limit(5)->get();
+        return view('web.pages.index' , compact("sliderImages"));
     }
 
     public function aboutUs(){

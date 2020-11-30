@@ -14,4 +14,8 @@ class VehicleImage extends Model
     public function getImage(){
         return route("read_file" , encrypt($this->companyVehicleImagePath."/".$this->image));
     }
+
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class , 'vehicle_id');
+    }
 }

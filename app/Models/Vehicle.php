@@ -18,4 +18,8 @@ class Vehicle extends Model
     public function seatStyle(){
         return $this->belongsTo(VehicleSeatStyle::class , "vehicle_seat_style_id");
     }
+
+    public function images(){
+        return $this->hasMany(VehicleImage::class , 'vehicle_id');
+    }
 }

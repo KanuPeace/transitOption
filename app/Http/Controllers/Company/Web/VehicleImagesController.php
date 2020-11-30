@@ -49,7 +49,7 @@ class VehicleImagesController extends Controller
             return back()->with("error_msg" , "Sorry, you cant upload more than 3 images per vehicle!");
         }    
 
-        $data["image"] = resizeImageandSave($request->file("image") , $this->companyVehicleImagePath);
+        $data["image"] = resizeImageandSave($request->file("image") , $this->companyVehicleImagePath , 'local' , 1200 , 700);
         VehicleImage::create($data);
         return back()->with("success_msg" , "Image created successfully!");
     }
@@ -90,7 +90,7 @@ class VehicleImagesController extends Controller
             // "vehicle_id" => "required|alpha_num",
             "image" => "required|image"
         ]);
-        $data["image"] = resizeImageandSave($request->file("image") , $this->companyVehicleImagePath);
+        $data["image"] = resizeImageandSave($request->file("image") , $this->companyVehicleImagePath , 'local' , 1200 , 700);
         deleteFileFromPrivateStorage($this->companyVehicleImagePath."/".$image->image);
         $image->update($data);
         return back()->with("success_msg" , "Image updated successfully!");

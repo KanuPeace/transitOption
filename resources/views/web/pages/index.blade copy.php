@@ -1,47 +1,21 @@
 @extends('web.layouts.app' , ['title' => "Home"])
 @section('content')
-<style>
-	.homepage_slider{
-		width: 100%;
-		height: 80vh;
-		background-size: cover;
-		
-	}
-</style>
 
 	<!-- Main -->
 	<main class="main" role="main">
 		<!-- Intro -->
-		<div class="carousel-inner">
-		
-		  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
-			<ol class="carousel-indicators">
-				@for ($i = 0; $i < $sliderImages->count(); $i++)
-					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="{{ $i++ == 1 ? "active" : '' }}"></li>
-				@endfor
-			</ol>
-			@php
-			$i = 0
-		@endphp
-			@foreach ($sliderImages as $image)
-				<div class="carousel-item {{ $i++ == 1 ? "active" : '' }}">
-					<div style="background-image:url({{ $image->getImage() }})" class="homepage_slider"></div>
-					<div class="carousel-caption d-none d-md-block">
-						<h5>{{ $image->vehicle->route_from }} - {{ $image->vehicle->route_to }}</h5>
-						<p>...</p>
+		<div class="intro">
+			<div class="wrap">
+				<div class="textwidget">
+					<h1 class="wow fadeInDown">Need a ride?</h1>
+					<h2 class="wow fadeInUp">You've come to the right place.</h2>
+					<div class="actions">
+						<a href="#services" title="Our services" class="btn large white wow fadeInLeft anchor">Our services</a>
+						<a href="#booking" title="Make a booking" class="btn large color wow fadeInRight anchor">Make a booking</a>
 					</div>
 				</div>
-			@endforeach
 			</div>
-			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-			  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-			  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Next</span>
-			</a>
-		  </div>
+		</div>
 		<!-- //Intro -->
 		
 		<!-- Search -->
