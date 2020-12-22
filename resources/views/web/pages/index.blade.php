@@ -1,574 +1,1289 @@
 @extends('web.layouts.app' , ['title' => "Home"])
 @section('content')
-<style>
-	.homepage_slider{
-		width: 100%;
-		height: 80vh;
-		background-size: cover;
-		background-position: center;
-		
-	}
-</style>
 
-	<!-- Main -->
-	<main class="main" role="main">
-		<!-- Intro -->
-		<div class="carousel-inner">
-		
-		  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
-			<ol class="carousel-indicators">
-				@for ($i = 0; $i < $sliderImages->count(); $i++)
-					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="{{ $i++ == 1 ? "active" : '' }}"></li>
-				@endfor
-			</ol>
-			@php
-			$i = 0
-		@endphp
-			@foreach ($sliderImages as $image)
-				<div class="carousel-item {{ $i++ == 1 ? "active" : '' }}">
-					<div style="background-image:url({{ $image->getImage() }})" class="homepage_slider"></div>
-					<div class="carousel-caption d-none d-md-block">
-						<h5>{{ $image->vehicle->route_from }} - {{ $image->vehicle->route_to }}</h5>
-						<p>...</p>
-					</div>
-				</div>
-			@endforeach
-			</div>
-			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-			  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-			  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Next</span>
-			</a>
-		  </div>
-		<!-- //Intro -->
-		
-		<!-- Search -->
-		<div class="advanced-search color" id="booking">
-			<div class="wrap">
-				<form role="form" action="search-results.html" method="post">
-					<!-- Row -->
-					<div class="f-row">
-						<div class="form-group datepicker one-third">
-							<label for="dep-date">Departure date and time</label>
-							<input type="text" id="dep-date" />
-						</div>
-						<div class="form-group select one-third">
-							<label>Pick up location</label>
-							<select>
-								<option selected>&nbsp;</option>
-								<optgroup label="Germany">
-									<option value="Berlin Central Train Station">Berlin Central Train Station</option>
-									<option value="Berlin Schonefeld Airport">Berlin Schonefeld Airport</option>
-									<option value="Berlin Tegel Airport">Berlin Tegel Airport</option>
-									<option value="Bremen Airport">Bremen Airport</option>
-									<option value="Cologne Bonn Airport">Cologne Bonn Airport</option>
-									<option value="Dortmund Airport">Dortmund Airport</option>
-									<option value="Dresden Airport">Dresden Airport</option>
-									<option value="Dusseldorf Airport">Dusseldorf Airport</option>
-									<option value="Frankfurt Hahn Airport">Frankfurt Hahn Airport</option>
-									<option value="Frankfurt International Airport">Frankfurt International Airport</option>
-									<option value="Friedrichshafen Airport">Friedrichshafen Airport</option>
-									<option value="Hamburg Finkenwerder Airport">Hamburg Finkenwerder Airport</option>
-									<option value="Hamburg Port">Hamburg Port</option>
-									<option value="Hamburg-Fuhlsbuttel Airport">Hamburg-Fuhlsbuttel Airport</option>
-									<option value="Hanover Lengenhagen Airport">Hanover Lengenhagen Airport</option>
-									<option value="Kiel Port">Kiel Port</option>
-									<option value="Leipzig Halle Airport">Leipzig Halle Airport</option>
-									<option value="Munich Airport">Munich Airport</option>
-									<option value="Nuremberg Airport">Nuremberg Airport</option>
-								</optgroup>
-								<optgroup label="Italy">
-									<option value="Alghero Airport">Alghero Airport</option>
-									<option value="Bari Airport">Bari Airport</option>
-									<option value="Bari Port">Bari Port</option>
-									<option value="Bergamo Airport">Bergamo Airport</option>
-									<option value="Bologna Airport">Bologna Airport</option>
-									<option value="Brindisi Airport">Brindisi Airport</option>
-									<option value="Cagliari Airport">Cagliari Airport</option>
-									<option value="Florence Airport">Florence Airport</option>
-									<option value="Florence Train Station">Florence Train Station</option>
-									<option value="Genoa Airport">Genoa Airport</option>
-									<option value="Genoa Port">Genoa Port</option>
-									<option value="Milan Central Train Station">Milan Central Train Station</option>
-									<option value="Milan City Centre">Milan City Centre</option>
-									<option value="Naples Airport">Naples Airport</option>
-								</optgroup>
-								<optgroup label="Spain">
-									<option value="Alicante Airport">Alicante Airport</option>
-									<option value="Almeria Airport">Almeria Airport</option>
-									<option value="Barcelona Airport">Barcelona Airport</option>
-									<option value="Granada Airport">Granada Airport</option>
-									<option value="Jerez de la Frontera">Jerez de la Frontera</option>
-									<option value="Leon Airport">Leon Airport</option>
-									<option value="Madrid Atocha Train Station">Madrid Atocha Train Station</option>
-									<option value="Madrid Barajas Airport">Madrid Barajas Airport</option>
-									<option value="Pamplona Airport">Pamplona Airport</option>
-									<option value="Santander Airport">Santander Airport</option>
-									<option value="Seville Airport">Seville Airport</option>
-									<option value="Valencia Airport">Valencia Airport</option>
-									<option value="Zaragoza Airport">Zaragoza Airport</option>
-								</optgroup>
-								<optgroup label="United Kingdom">
-									<option value="Belfast City Airport">Belfast City Airport</option>
-									<option value="Belfast International Airport">Belfast International Airport</option>
-									<option value="Bristol Airport">Bristol Airport</option>
-									<option value="Cardiff Airport">Cardiff Airport</option>
-									<option value="Edinburgh Airport">Edinburgh Airport</option>
-									<option value="Glasgow International Airport">Glasgow International Airport</option>
-									<option value="London City Airport">London City Airport</option>
-									<option value="London Gatwick Airport">London Gatwick Airport</option>
-									<option value="London Heathrow Airport">London Heathrow Airport</option>
-									<option value="London Stansted Airport">London Stansted Airport</option>
-									<option value="Manchester Airport">Manchester Airport</option>
-									<option value="Southampton Airport">Southampton Airport</option>
-								</optgroup>
-							</select>
-						</div>
-						<div class="form-group select one-third">
-							<label>Drop off location</label>
-							<select>
-								<option selected>&nbsp;</option>
-								<optgroup label="Germany">
-									<option value="Berlin Central Train Station">Berlin Central Train Station</option>
-									<option value="Berlin Schonefeld Airport">Berlin Schonefeld Airport</option>
-									<option value="Berlin Tegel Airport">Berlin Tegel Airport</option>
-									<option value="Bremen Airport">Bremen Airport</option>
-									<option value="Cologne Bonn Airport">Cologne Bonn Airport</option>
-									<option value="Dortmund Airport">Dortmund Airport</option>
-									<option value="Dresden Airport">Dresden Airport</option>
-									<option value="Dusseldorf Airport">Dusseldorf Airport</option>
-									<option value="Frankfurt Hahn Airport">Frankfurt Hahn Airport</option>
-									<option value="Frankfurt International Airport">Frankfurt International Airport</option>
-									<option value="Friedrichshafen Airport">Friedrichshafen Airport</option>
-									<option value="Hamburg Finkenwerder Airport">Hamburg Finkenwerder Airport</option>
-									<option value="Hamburg Port">Hamburg Port</option>
-									<option value="Hamburg-Fuhlsbuttel Airport">Hamburg-Fuhlsbuttel Airport</option>
-									<option value="Hanover Lengenhagen Airport">Hanover Lengenhagen Airport</option>
-									<option value="Kiel Port">Kiel Port</option>
-									<option value="Leipzig Halle Airport">Leipzig Halle Airport</option>
-									<option value="Munich Airport">Munich Airport</option>
-									<option value="Nuremberg Airport">Nuremberg Airport</option>
-								</optgroup>
-								<optgroup label="Italy">
-									<option value="Alghero Airport">Alghero Airport</option>
-									<option value="Bari Airport">Bari Airport</option>
-									<option value="Bari Port">Bari Port</option>
-									<option value="Bergamo Airport">Bergamo Airport</option>
-									<option value="Bologna Airport">Bologna Airport</option>
-									<option value="Brindisi Airport">Brindisi Airport</option>
-									<option value="Cagliari Airport">Cagliari Airport</option>
-									<option value="Florence Airport">Florence Airport</option>
-									<option value="Florence Train Station">Florence Train Station</option>
-									<option value="Genoa Airport">Genoa Airport</option>
-									<option value="Genoa Port">Genoa Port</option>
-									<option value="Milan Central Train Station">Milan Central Train Station</option>
-									<option value="Milan City Centre">Milan City Centre</option>
-									<option value="Naples Airport">Naples Airport</option>
-								</optgroup>
-								<optgroup label="Spain">
-									<option value="Alicante Airport">Alicante Airport</option>
-									<option value="Almeria Airport">Almeria Airport</option>
-									<option value="Barcelona Airport">Barcelona Airport</option>
-									<option value="Granada Airport">Granada Airport</option>
-									<option value="Jerez de la Frontera">Jerez de la Frontera</option>
-									<option value="Leon Airport">Leon Airport</option>
-									<option value="Madrid Atocha Train Station">Madrid Atocha Train Station</option>
-									<option value="Madrid Barajas Airport">Madrid Barajas Airport</option>
-									<option value="Pamplona Airport">Pamplona Airport</option>
-									<option value="Santander Airport">Santander Airport</option>
-									<option value="Seville Airport">Seville Airport</option>
-									<option value="Valencia Airport">Valencia Airport</option>
-									<option value="Zaragoza Airport">Zaragoza Airport</option>
-								</optgroup>
-								<optgroup label="United Kingdom">
-									<option value="Belfast City Airport">Belfast City Airport</option>
-									<option value="Belfast International Airport">Belfast International Airport</option>
-									<option value="Bristol Airport">Bristol Airport</option>
-									<option value="Cardiff Airport">Cardiff Airport</option>
-									<option value="Edinburgh Airport">Edinburgh Airport</option>
-									<option value="Glasgow International Airport">Glasgow International Airport</option>
-									<option value="London City Airport">London City Airport</option>
-									<option value="London Gatwick Airport">London Gatwick Airport</option>
-									<option value="London Heathrow Airport">London Heathrow Airport</option>
-									<option value="London Stansted Airport">London Stansted Airport</option>
-									<option value="Manchester Airport">Manchester Airport</option>
-									<option value="Southampton Airport">Southampton Airport</option>
-								</optgroup>
-							</select>
-						</div>
-					</div>
-					<!-- //Row -->
-					
-					<!-- Row -->
-					<div class="f-row">
-						<div class="form-group datepicker one-third">
-							<label for="ret-date">Return date and time</label>
-							<input type="text" id="ret-date" />
-						</div>
-						<div class="form-group select one-third">
-							<label>Pick up location</label>
-							<select>
-								<option selected>&nbsp;</option>
-								<optgroup label="Germany">
-									<option value="Berlin Central Train Station">Berlin Central Train Station</option>
-									<option value="Berlin Schonefeld Airport">Berlin Schonefeld Airport</option>
-									<option value="Berlin Tegel Airport">Berlin Tegel Airport</option>
-									<option value="Bremen Airport">Bremen Airport</option>
-									<option value="Cologne Bonn Airport">Cologne Bonn Airport</option>
-									<option value="Dortmund Airport">Dortmund Airport</option>
-									<option value="Dresden Airport">Dresden Airport</option>
-									<option value="Dusseldorf Airport">Dusseldorf Airport</option>
-									<option value="Frankfurt Hahn Airport">Frankfurt Hahn Airport</option>
-									<option value="Frankfurt International Airport">Frankfurt International Airport</option>
-									<option value="Friedrichshafen Airport">Friedrichshafen Airport</option>
-									<option value="Hamburg Finkenwerder Airport">Hamburg Finkenwerder Airport</option>
-									<option value="Hamburg Port">Hamburg Port</option>
-									<option value="Hamburg-Fuhlsbuttel Airport">Hamburg-Fuhlsbuttel Airport</option>
-									<option value="Hanover Lengenhagen Airport">Hanover Lengenhagen Airport</option>
-									<option value="Kiel Port">Kiel Port</option>
-									<option value="Leipzig Halle Airport">Leipzig Halle Airport</option>
-									<option value="Munich Airport">Munich Airport</option>
-									<option value="Nuremberg Airport">Nuremberg Airport</option>
-								</optgroup>
-								<optgroup label="Italy">
-									<option value="Alghero Airport">Alghero Airport</option>
-									<option value="Bari Airport">Bari Airport</option>
-									<option value="Bari Port">Bari Port</option>
-									<option value="Bergamo Airport">Bergamo Airport</option>
-									<option value="Bologna Airport">Bologna Airport</option>
-									<option value="Brindisi Airport">Brindisi Airport</option>
-									<option value="Cagliari Airport">Cagliari Airport</option>
-									<option value="Florence Airport">Florence Airport</option>
-									<option value="Florence Train Station">Florence Train Station</option>
-									<option value="Genoa Airport">Genoa Airport</option>
-									<option value="Genoa Port">Genoa Port</option>
-									<option value="Milan Central Train Station">Milan Central Train Station</option>
-									<option value="Milan City Centre">Milan City Centre</option>
-									<option value="Naples Airport">Naples Airport</option>
-								</optgroup>
-								<optgroup label="Spain">
-									<option value="Alicante Airport">Alicante Airport</option>
-									<option value="Almeria Airport">Almeria Airport</option>
-									<option value="Barcelona Airport">Barcelona Airport</option>
-									<option value="Granada Airport">Granada Airport</option>
-									<option value="Jerez de la Frontera">Jerez de la Frontera</option>
-									<option value="Leon Airport">Leon Airport</option>
-									<option value="Madrid Atocha Train Station">Madrid Atocha Train Station</option>
-									<option value="Madrid Barajas Airport">Madrid Barajas Airport</option>
-									<option value="Pamplona Airport">Pamplona Airport</option>
-									<option value="Santander Airport">Santander Airport</option>
-									<option value="Seville Airport">Seville Airport</option>
-									<option value="Valencia Airport">Valencia Airport</option>
-									<option value="Zaragoza Airport">Zaragoza Airport</option>
-								</optgroup>
-								<optgroup label="United Kingdom">
-									<option value="Belfast City Airport">Belfast City Airport</option>
-									<option value="Belfast International Airport">Belfast International Airport</option>
-									<option value="Bristol Airport">Bristol Airport</option>
-									<option value="Cardiff Airport">Cardiff Airport</option>
-									<option value="Edinburgh Airport">Edinburgh Airport</option>
-									<option value="Glasgow International Airport">Glasgow International Airport</option>
-									<option value="London City Airport">London City Airport</option>
-									<option value="London Gatwick Airport">London Gatwick Airport</option>
-									<option value="London Heathrow Airport">London Heathrow Airport</option>
-									<option value="London Stansted Airport">London Stansted Airport</option>
-									<option value="Manchester Airport">Manchester Airport</option>
-									<option value="Southampton Airport">Southampton Airport</option>
-								</optgroup>
-							</select>
-						</div>
-						<div class="form-group select one-third">
-							<label>Drop off location</label>
-							<select>
-								<option selected>&nbsp;</option>
-								<optgroup label="Germany">
-									<option value="Berlin Central Train Station">Berlin Central Train Station</option>
-									<option value="Berlin Schonefeld Airport">Berlin Schonefeld Airport</option>
-									<option value="Berlin Tegel Airport">Berlin Tegel Airport</option>
-									<option value="Bremen Airport">Bremen Airport</option>
-									<option value="Cologne Bonn Airport">Cologne Bonn Airport</option>
-									<option value="Dortmund Airport">Dortmund Airport</option>
-									<option value="Dresden Airport">Dresden Airport</option>
-									<option value="Dusseldorf Airport">Dusseldorf Airport</option>
-									<option value="Frankfurt Hahn Airport">Frankfurt Hahn Airport</option>
-									<option value="Frankfurt International Airport">Frankfurt International Airport</option>
-									<option value="Friedrichshafen Airport">Friedrichshafen Airport</option>
-									<option value="Hamburg Finkenwerder Airport">Hamburg Finkenwerder Airport</option>
-									<option value="Hamburg Port">Hamburg Port</option>
-									<option value="Hamburg-Fuhlsbuttel Airport">Hamburg-Fuhlsbuttel Airport</option>
-									<option value="Hanover Lengenhagen Airport">Hanover Lengenhagen Airport</option>
-									<option value="Kiel Port">Kiel Port</option>
-									<option value="Leipzig Halle Airport">Leipzig Halle Airport</option>
-									<option value="Munich Airport">Munich Airport</option>
-									<option value="Nuremberg Airport">Nuremberg Airport</option>
-								</optgroup>
-								<optgroup label="Italy">
-									<option value="Alghero Airport">Alghero Airport</option>
-									<option value="Bari Airport">Bari Airport</option>
-									<option value="Bari Port">Bari Port</option>
-									<option value="Bergamo Airport">Bergamo Airport</option>
-									<option value="Bologna Airport">Bologna Airport</option>
-									<option value="Brindisi Airport">Brindisi Airport</option>
-									<option value="Cagliari Airport">Cagliari Airport</option>
-									<option value="Florence Airport">Florence Airport</option>
-									<option value="Florence Train Station">Florence Train Station</option>
-									<option value="Genoa Airport">Genoa Airport</option>
-									<option value="Genoa Port">Genoa Port</option>
-									<option value="Milan Central Train Station">Milan Central Train Station</option>
-									<option value="Milan City Centre">Milan City Centre</option>
-									<option value="Naples Airport">Naples Airport</option>
-								</optgroup>
-								<optgroup label="Spain">
-									<option value="Alicante Airport">Alicante Airport</option>
-									<option value="Almeria Airport">Almeria Airport</option>
-									<option value="Barcelona Airport">Barcelona Airport</option>
-									<option value="Granada Airport">Granada Airport</option>
-									<option value="Jerez de la Frontera">Jerez de la Frontera</option>
-									<option value="Leon Airport">Leon Airport</option>
-									<option value="Madrid Atocha Train Station">Madrid Atocha Train Station</option>
-									<option value="Madrid Barajas Airport">Madrid Barajas Airport</option>
-									<option value="Pamplona Airport">Pamplona Airport</option>
-									<option value="Santander Airport">Santander Airport</option>
-									<option value="Seville Airport">Seville Airport</option>
-									<option value="Valencia Airport">Valencia Airport</option>
-									<option value="Zaragoza Airport">Zaragoza Airport</option>
-								</optgroup>
-								<optgroup label="United Kingdom">
-									<option value="Belfast City Airport">Belfast City Airport</option>
-									<option value="Belfast International Airport">Belfast International Airport</option>
-									<option value="Bristol Airport">Bristol Airport</option>
-									<option value="Cardiff Airport">Cardiff Airport</option>
-									<option value="Edinburgh Airport">Edinburgh Airport</option>
-									<option value="Glasgow International Airport">Glasgow International Airport</option>
-									<option value="London City Airport">London City Airport</option>
-									<option value="London Gatwick Airport">London Gatwick Airport</option>
-									<option value="London Heathrow Airport">London Heathrow Airport</option>
-									<option value="London Stansted Airport">London Stansted Airport</option>
-									<option value="Manchester Airport">Manchester Airport</option>
-									<option value="Southampton Airport">Southampton Airport</option>
-								</optgroup>
-							</select>
-						</div>
-					</div>
-					<!-- //Row -->
-					
-					<!-- Row -->
-					<div class="f-row">
-						<div class="form-group spinner">
-							<label for="people">How many people <small>(including children)</small>?</label>
-							<input type="number" id="people" min="1"  />
-						</div>
-						<div class="form-group radios">
-							<div>
-								<input type="radio" name="radio" id="return" value="return" />
-								<label for="return">Return</label>
-							</div>
-							<div>
-								<input type="radio" name="radio" id="oneway" value="oneway" checked />
-								<label for="oneway">One way</label>
-							</div>
-						</div>
-						<div class="form-group right">
-							<button type="submit" class="btn large black">Find a transfer</button>
-						</div>
-					</div>
-					<!--// Row -->
-				</form>
-			</div>
-		</div>
-		<!-- //Search -->
-		
-		<!-- Services iconic -->
-		<div class="services iconic white">
-			<div class="wrap">
-				<div class="row">
-					<!-- Item -->
-					<div class="one-third wow fadeIn">
-						<span class="circle"><span class="icon  icon-themeenergy_savings"></span></span>
-						<h3>Fixed rates</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn" data-wow-delay=".2s">
-						<span class="circle"><span class="icon icon-themeenergy_lockpad"></span></span>
-						<h3>Reliable transfers</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn" data-wow-delay=".4s">
-						<span class="circle"><span class="icon icon-themeenergy_open-wallet"></span></span>
-						<h3>No booking fees</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn">
-						<span class="circle"><span class="icon icon-themeenergy_heart"></span></span>
-						<h3>Free cancellation</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn" data-wow-delay=".2s">
-						<span class="circle"><span class="icon icon-themeenergy_magic-trick"></span></span>
-						<h3>Booking flexibility</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn" data-wow-delay=".4s">
-						<span class="circle"><span class="icon icon-themeenergy_call"></span></span>
-						<h3>24h customer service</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn">
-						<span class="circle"><span class="icon icon-themeenergy_cup"></span></span>
-						<h3>Award winning service</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn" data-wow-delay=".2s">
-						<span class="circle"><span class="icon icon-themeenergy_attach"></span></span>
-						<h3>Benefits for partners</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-					
-					<!-- Item -->
-					<div class="one-third wow fadeIn" data-wow-delay=".4s">
-						<span class="circle"><span class="icon icon-themeenergy_stars"></span></span>
-						<h3>Quality vehicles</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy  tinc dolore magna.</p>
-					</div>
-					<!-- //Item -->
-				</div>
-			</div>
-		</div>
-		<!-- //Services iconic -->
-		
-		<!-- Call to action -->
-		<div class="black cta">
-			<div class="wrap">
-				<p class="wow fadeInLeft">Like what you see? Are you ready to stand out? You know what to do.</p>
-				<a href="http://themeforest.net/item/transfers-transport-and-car-hire-html-template/9366018?ref=themeenergy" class="btn huge color right wow fadeInRight">Purchase theme</a>
-			</div>
-		</div>
-		<!-- //Call to action -->
-		
-		<!-- Services -->
-		<div class="services boxed white" id="services">
-			<!-- Item -->
-			<article class="one-fourth wow fadeIn">
-				<figure class="featured-image">
-					<img src="images/uploads/img2.jpg" alt="" />
-					<div class="overlay">
-						<a href="services.html" class="expand">+</a>
-					</div>
-				</figure>
-				<div class="details">
-					<h4><a href="services.html">Private transfers</a></h4>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-					<a class="more" title="Read more" href="services.html">Read more</a>
-				</div>
-			</article>
-			<!-- //Item -->
-			
-			<!-- Item -->
-			<article class="one-fourth wow fadeIn" data-wow-delay=".2s">
-				<figure class="featured-image">
-					<img src="images/uploads/img2.jpg" alt="" />
-					<div class="overlay">
-						<a href="services.html" class="expand">+</a>
-					</div>
-				</figure>
-				<div class="details">
-					<h4><a href="services.html">Bus transfers</a></h4>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-					<a class="more" title="Read more" href="services.html">Read more</a>
-				</div>
-			</article>
-			<!-- //Item -->
-			
-			<!-- Item -->
-			<article class="one-fourth wow fadeIn" data-wow-delay=".4s">
-				<figure class="featured-image">
-					<img src="images/uploads/img2.jpg" alt="" />
-					<div class="overlay">
-						<a href="services.html" class="expand">+</a>
-					</div>
-				</figure>
-				<div class="details">
-					<h4><a href="services.html">Shuttle transfers</a></h4>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-					<a class="more" title="Read more" href="services.html">Read more</a>
-				</div>
-			</article>
-			<!-- //Item -->
-			
-			<!-- Item -->
-			<article class="one-fourth wow fadeIn" data-wow-delay=".6s">
-				<figure class="featured-image">
-					<img src="images/uploads/img2.jpg" alt="" />
-					<div class="overlay">
-						<a href="services.html" class="expand">+</a>
-					</div>
-				</figure>
-				<div class="details">
-					<h4><a href="services.html">Helicopter transfers</a></h4>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-					<a class="more" title="Read more" href="services.html">Read more</a>
-				</div>
-			</article>
-			<!-- //Item -->			
-		</div>
-		<!-- //Services -->
-		
-		<!-- Testimonials -->
-		<div class="testimonials center black">
-			<div class="wrap">
-				<h6 class="wow fadeInDown"><i class="fa fa-quote-left"></i>Wow, this theme is outstanding!</h6>
-				<p class="wow fadeInUp">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-				<p class="meta wow fadeInUp">-John Doe, themeforest</p>
-			</div>
-		</div>
-		<!-- //Testimonials -->
-		
-		<div class="partners white center">
-			<div class="wrap">
-				<h2 class="wow fadeIn">Our partners</h2>
-				<div class="one-fifth wow fadeIn"><a href="#"><img src="images/uploads/logo1.jpg" alt="" /></a></div>
-				<div class="one-fifth wow fadeIn" data-wow-delay=".2s"><a href="#"><img src="images/uploads/logo2.jpg" alt="" /></a></div>
-				<div class="one-fifth wow fadeIn" data-wow-delay=".4s"><a href="#"><img src="images/uploads/logo3.jpg" alt="" /></a></div>
-				<div class="one-fifth wow fadeIn" data-wow-delay=".6s"><a href="#"><img src="images/uploads/logo4.jpg" alt="" /></a></div>
-				<div class="one-fifth" data-wow-delay=".8s"><a href="#"><img src="images/uploads/logo5.jpg" alt="" /></a></div>
-			</div>
-		</div>
-		
-		
-		<!-- Call to action -->
-		<div class="color cta">
-			<div class="wrap">
-				<p class="wow fadeInLeft">Like what you see? Are you ready to stand out? You know what to do.</p>
-				<a href="http://themeforest.net/item/transfers-transport-and-car-hire-html-template/9366018?ref=themeenergy" class="btn huge black right wow fadeInRight">Purchase theme</a>
-			</div>
-		</div>
-		<!-- //Call to action -->
-	</main>
-	<!-- //Main -->
-	
+        <div id="home" class="home-banner-area ptb-70 bg-light">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="banner-content mb-30">
+                            <span class="sub-title">Amazing Places</span>
+                            <h1>
+                                Make Your Trip Fun & Noted
+                            </h1>
+                            <p>
+                                Travel has helped us to understand the meaning
+                                of life and it has helped us become better
+                                people. Each time we travel, we see the world
+                                with new eyes.
+                            </p>
+                            <div class="search-form">
+                                <form id="searchForm">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="select-box">
+                                                <i class='bx bx-map-alt'></i>
+                                                <select class="form-control">
+                                                    <option
+                                                        data-display='Destination'>Nothing</option>
+                                                    <option value="1">North
+                                                        America</option>
+                                                    <option value="2">Spain
+                                                        Madrid</option>
+                                                    <option value="3">Japan
+                                                        Tokyo</option>
+                                                    <option value="4">Europe
+                                                        City</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="select-box">
+                                                <i class='bx bx-calendar'></i>
+                                                <input type="text"
+                                                    class="date-select
+                                                    form-control"
+                                                    placeholder="Depart Date"
+                                                    required="required" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="select-box">
+                                                <i class='bx bx-package'></i>
+                                                <select class="form-control">
+                                                    <option data-display='Travel
+                                                        Type'>Travel Type</option>
+                                                    <option value="1">City Tour</option>
+                                                    <option value="2">Family
+                                                        Tours</option>
+                                                    <option value="3">Seasonal
+                                                        Tours</option>
+                                                    <option value="4">Outdoor
+                                                        Activities</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="select-box">
+                                                <i class='bx bx-time'></i>
+                                                <select class="form-control">
+                                                    <option data-display='Tour
+                                                        Duration'>Nothing</option>
+                                                    <option value="1">5 Days</option>
+                                                    <option value="2">12 Days</option>
+                                                    <option value="3">21 Days</option>
+                                                    <option value="4">30 Days</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mt-15">
+                                            <button type="button"
+                                                class="btn-primary">Search Here</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pr-0">
+                        <div class="banner-slider owl-carousel mb-30">
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/banner/slider1.jpg"
+                                        alt="Demo Image">
+                                </div>
+                                <div class="content">
+                                    <span class="location"><i class='bx bx-map'></i>Champ
+                                        de Mars, France</span>
+                                    <h3 class="mt-15">
+                                        <a href="destination-details.html">Eiffel
+                                            Tower</a>
+                                    </h3>
+                                    <div class="review mb-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>25 Review</span>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>3 Days</li>
+                                        <li><i class='bx bx-group'></i>160+</li>
+                                        <li>$1500</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/banner/slider2.jpg"
+                                        alt="Demo Image">
+                                </div>
+                                <div class="content">
+                                    <span class="location"><i class='bx bx-map'></i>Chanmore,
+                                        Canada</span>
+                                    <h3 class="mt-15">
+                                        <a href="destination-details.html">Chanmore</a>
+                                    </h3>
+                                    <div class="review mb-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>25 Review</span>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>3 Days</li>
+                                        <li><i class='bx bx-group'></i>160+</li>
+                                        <li>$1500</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/banner/slider3.jpg"
+                                        alt="Demo Image">
+                                </div>
+                                <div class="content">
+                                    <span class="location"><i class='bx bx-map'></i>Place
+                                        du Carrousel, France</span>
+                                    <h3 class="mt-15">
+                                        <a href="destination-details.html">Carrousel</a>
+                                    </h3>
+                                    <div class="review mb-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>25 Review</span>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>3 Days</li>
+                                        <li><i class='bx bx-group'></i>160+</li>
+                                        <li>$1500</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/banner/slider4.jpg"
+                                        alt="Demo Image">
+                                </div>
+                                <div class="content">
+                                    <span class="location"><i class='bx bx-map'></i>Ontario
+                                        Place, Canada</span>
+                                    <h3 class="mt-15">
+                                        <a href="destination-details.html">Ontario
+                                            Place</a>
+                                    </h3>
+                                    <div class="review mb-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>25 Review</span>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>3 Days</li>
+                                        <li><i class='bx bx-group'></i>160+</li>
+                                        <li>$1500</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="owl-custom-dots" class='owl-dots'>
+                            <img class="owl-dot"
+                                src="{{ $web_source }}/img/banner/slider1.jpg" alt="Demo
+                                Image">
+                            <img class="owl-dot"
+                                src="{{ $web_source }}/img/banner/slider2.jpg" alt="Demo
+                                Image">
+                            <img class="owl-dot"
+                                src="{{ $web_source }}/img/banner/slider3.jpg" alt="Demo
+                                Image">
+                            <img class="owl-dot"
+                                src="{{ $web_source }}/img/banner/slider4.jpg" alt="Demo
+                                Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section id="about" class="about-section pt-100 pb-70">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="video-content mb-30">
+                            <div class="video-image">
+                                <img src="{{ $web_source }}/img/about1.jpg" alt="video" />
+                            </div>
+                            <a
+                                href="https://www.youtube.com/watch?v=QSwvg9Rv2EI"
+                                class="youtube-popup video-btn">
+                                <i class='bx bx-right-arrow'></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-content mb-30">
+                            <h2>
+                                About Us
+                            </h2>
+                            <h6>
+                                Top Tour Operators and Travel Agency. We
+                                offering in total 793 tours and holidays
+                                throughout the world. Combined we have received
+                                1532 customer reviews and an average rating of 5
+                                out of 5 stars.
+                            </h6>
+                            <p>
+                                Travel has helped us to understand the meaning
+                                of life and it has helped us become better
+                                people. Each time we travel, we see the world
+                                with new eyes.
+                            </p>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="content-list">
+                                        <i class='bx bx-check-shield'></i>
+                                        <h6>Safety Travel System</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="content-list">
+                                        <i class='bx bx-donate-heart'></i>
+                                        <h6>Budget-Friendly Tour</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="content-list">
+                                        <i class='bx bx-time'></i>
+                                        <h6>Expert Trip Planning</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="content-list">
+                                        <i class='bx bx-station'></i>
+                                        <h6>Fast Communication</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="content-list">
+                                        <i class='bx bx-like'></i>
+                                        <h6>Right Solution & Guide</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="content-list">
+                                        <i class='bx bx-support'></i>
+                                        <h6>24/7 Customer Support</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="about-btn">
+                                <a href="contact.html" class="btn-primary">Contact
+                                    Us</a>
+                                <a href="about-us.html" class="btn-primary">Read
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shape shape-1">
+                <img src="{{ $web_source }}/img/shape1.png" alt="Background Shape">
+            </div>
+            <div class="shape shape-2">
+                <img src="{{ $web_source }}/img/shape2.png" alt="Background Shape">
+            </div>
+        </section>
+
+
+        <section id="destination" class="destination-section pt-100 pb-70
+            bg-light">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Destinations</h2>
+                    <p>Travel has helped us to understand the meaning of life
+                        and it has helped us become better people. Each time we
+                        travel, we see the world with new eyes.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 m-auto">
+                        <div class="filter-group">
+
+                            <ul id="control" class="list-control">
+                                <li class="active" data-filter="all">All</li>
+                                <li data-filter="1">Budget-Friendly</li>
+                                <li data-filter="2">Royal</li>
+                                <li data-filter="3">Recommended</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row filtr-container">
+                    <div class="col-lg-4 col-md-6 filtr-item" data-category="1"
+                        data-sort="value">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/destination1.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <span class="location"><i class='bx bx-map'></i>Hvar,
+                                    Croatia</span>
+                                <h3>
+                                    <a href="destination-details.html">Piazza
+                                        Castello</a>
+                                </h3>
+                                <div class="review">
+                                    <i class='bx bx-smile'></i>
+                                    <span>8.5</span>
+                                    <span>Superb</span>
+                                </div>
+                                <p>
+                                    A wonderful little cottage right on the
+                                    seashore - perfect for exploring.
+                                </p>
+                                <hr>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>3 Days</li>
+                                    <li><i class='bx bx-group'></i>160+</li>
+                                    <li>$500</li>
+                                </ul>
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 filtr-item" data-category="2,
+                        1" data-sort="value">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/destination2.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <span class="location"><i class='bx bx-map'></i>Santorini,
+                                    Oia, Greece</span>
+                                <h3>
+                                    <a href="destination-details.html">Santorini,
+                                        Oia, Greece</a>
+                                </h3>
+                                <div class="review">
+                                    <i class='bx bx-smile'></i>
+                                    <span>9</span>
+                                    <span>Superb</span>
+                                </div>
+                                <p>
+                                    A wonderful little cottage right on the
+                                    seashore - perfect for exploring.
+                                </p>
+                                <hr>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>7 Days</li>
+                                    <li><i class='bx bx-group'></i>65+</li>
+                                    <li>$2000</li>
+                                </ul>
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 filtr-item" data-category="2"
+                        data-sort="value">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/destination3.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <span class="location"><i class='bx bx-map'></i>Rialto
+                                    Bridge, Italy</span>
+                                <h3>
+                                    <a href="destination-details.html">Rialto
+                                        Bridge</a>
+                                </h3>
+                                <div class="review">
+                                    <i class='bx bx-smile'></i>
+                                    <span>7.5</span>
+                                    <span>Superb</span>
+                                </div>
+                                <p>
+                                    A wonderful little cottage right on the
+                                    seashore - perfect for exploring.
+                                </p>
+                                <hr>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>5 Days</li>
+                                    <li><i class='bx bx-group'></i>96+</li>
+                                    <li>$2100</li>
+                                </ul>
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 filtr-item" data-category="2,
+                        3" data-sort="value">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/destination4.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <span class="location"><i class='bx bx-map'></i>Santorini,
+                                    Greece</span>
+                                <h3>
+                                    <a href="destination-details.html">Santorini,
+                                        Greece</a>
+                                </h3>
+                                <div class="review">
+                                    <i class='bx bx-smile'></i>
+                                    <span>9</span>
+                                    <span>Superb</span>
+                                </div>
+                                <p>
+                                    A wonderful little cottage right on the
+                                    seashore - perfect for exploring.
+                                </p>
+                                <hr>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>7 Days</li>
+                                    <li><i class='bx bx-group'></i>65+</li>
+                                    <li>$2000</li>
+                                </ul>
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 filtr-item" data-category="1,
+                        3" data-sort="value">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/destination5.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <span class="location"><i class='bx bx-map'></i>Oia,
+                                    Greece</span>
+                                <h3>
+                                    <a href="destination-details.html">Greek
+                                        Cottage, Greece</a>
+                                </h3>
+                                <div class="review">
+                                    <i class='bx bx-smile'></i>
+                                    <span>8.5</span>
+                                    <span>Superb</span>
+                                </div>
+                                <p>
+                                    A wonderful little cottage right on the
+                                    seashore - perfect for exploring.
+                                </p>
+                                <hr>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>3 Days</li>
+                                    <li><i class='bx bx-group'></i>160+</li>
+                                    <li>$1500</li>
+                                </ul>
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 filtr-item" data-category="3,
+                        1" data-sort="value">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/destination6.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <span class="location"><i class='bx bx-map'></i>Venice,
+                                    Italy</span>
+                                <h3>
+                                    <a href="destination-details.html">Metropolitan
+                                        City</a>
+                                </h3>
+                                <div class="review">
+                                    <i class='bx bx-smile'></i>
+                                    <span>8.5</span>
+                                    <span>Superb</span>
+                                </div>
+                                <p>
+                                    A wonderful little cottage right on the
+                                    seashore - perfect for exploring.
+                                </p>
+                                <hr>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>3 Days</li>
+                                    <li><i class='bx bx-group'></i>160+</li>
+                                    <li>$1500</li>
+                                </ul>
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="offers" class="offers-section pt-100 pb-70">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Special Offers & Discount</h2>
+                    <p>Travel has helped us to understand the meaning of life
+                        and it has helped us become better people. Each time we
+                        travel, we see the world with new eyes.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/offer1.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <div class="review">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <span>39 Review</span>
+                                </div>
+                                <div class="title">
+                                    <h3>
+                                        <a href="tours.html">Asia Tour</a>
+                                    </h3>
+                                    <span>$2000</span>
+                                </div>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>7 Days</li>
+                                    <li><i class='bx bx-group'></i>60+</li>
+                                    <li>$1500</li>
+                                </ul>
+                            </div>
+                            <div class="discount">
+                                <span>Discount</span>
+                                <span>30%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/offer2.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <div class="review">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <span>19 Review</span>
+                                </div>
+                                <div class="title">
+                                    <h3>
+                                        <a href="tours.html">Russia Tour of
+                                            Couple</a>
+                                    </h3>
+                                    <span>$1600</span>
+                                </div>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>5 Days</li>
+                                    <li><i class='bx bx-group'></i>130+</li>
+                                    <li>$1200</li>
+                                </ul>
+                            </div>
+                            <div class="discount">
+                                <span>Discount</span>
+                                <span>29%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 m-auto">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/offer3.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <div class="review">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <span>35 Review</span>
+                                </div>
+                                <div class="title">
+                                    <h3>
+                                        <a href="tours.html">Campfire In
+                                            Australia</a>
+                                    </h3>
+                                    <span>$2600</span>
+                                </div>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>3 Days</li>
+                                    <li><i class='bx bx-group'></i>91+</li>
+                                    <li>$2200</li>
+                                </ul>
+                            </div>
+                            <div class="discount">
+                                <span>Discount</span>
+                                <span>16%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="testimonial" class="testimonial-section ptb-100 bg-light">
+            <div class="container">
+                <div class="section-title">
+                    <h2>What're Our Clients Say</h2>
+                    <p>Travel has helped us to understand the meaning of life
+                        and it has helped us become better people. Each time we
+                        travel, we see the world with new eyes.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 m-auto">
+                        <div class="testimonial-slider owl-carousel">
+                            <div class="slider-item">
+                                <div class="client-img">
+                                    <img src="{{ $web_source }}/img/client1.jpg"
+                                        alt="client-1" />
+                                </div>
+                                <div class="content">
+                                    <div class="client-info">
+                                        <h3>Jordan Alin</h3>
+                                        <span>Bloger & Youtuber</span>
+                                    </div>
+                                    <div class="quote">
+                                        <i class='bx bxs-quote-left'></i>
+                                    </div>
+                                    <p>
+                                        The Personal Travel Agents Academy is a
+                                        12-month training programme allowing
+                                        anyone with no previous travel
+                                        experience to start their own travel
+                                        business. This is an advanced course to
+                                        help build knowledge in travel and
+                                        develop sales skills.
+                                    </p>
+                                    <div class="review">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="client-img">
+                                    <img src="{{ $web_source }}/img/client2.jpg"
+                                        alt="client-1" />
+                                </div>
+                                <div class="content">
+                                    <div class="client-info mb-30">
+                                        <h3>David Milan</h3>
+                                        <span>Photographer</span>
+                                    </div>
+                                    <div class="quote">
+                                        <i class='bx bxs-quote-left'></i>
+                                    </div>
+                                    <p>
+                                        The Personal Travel Agents Academy is a
+                                        12-month training programme allowing
+                                        anyone with no previous travel
+                                        experience to start their own travel
+                                        business. This is an advanced course to
+                                        help build knowledge in travel and
+                                        develop sales skills.
+                                    </p>
+                                    <div class="review mt-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="client-img">
+                                    <img src="{{ $web_source }}/img/client3.jpg"
+                                        alt="client-1" />
+                                </div>
+                                <div class="content">
+                                    <div class="client-info mb-30">
+                                        <h3>Thomas Alva</h3>
+                                        <span>Journalist</span>
+                                    </div>
+                                    <div class="quote">
+                                        <i class='bx bxs-quote-left'></i>
+                                    </div>
+                                    <p>
+                                        The Personal Travel Agents Academy is a
+                                        12-month training programme allowing
+                                        anyone with no previous travel
+                                        experience to start their own travel
+                                        business. This is an advanced course to
+                                        help build knowledge in travel and
+                                        develop sales skills.
+                                    </p>
+                                    <div class="review mt-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="client-img">
+                                    <img src="{{ $web_source }}/img/client4.jpg"
+                                        alt="client-1" />
+                                </div>
+                                <div class="content">
+                                    <div class="client-info mb-30">
+                                        <h3>Jenn Lucas</h3>
+                                        <span>Actress & Model</span>
+                                    </div>
+                                    <div class="quote">
+                                        <i class='bx bxs-quote-left'></i>
+                                    </div>
+                                    <p>
+                                        The Personal Travel Agents Academy is a
+                                        12-month training programme allowing
+                                        anyone with no previous travel
+                                        experience to start their own travel
+                                        business. This is an advanced course to
+                                        help build knowledge in travel and
+                                        develop sales skills.
+                                    </p>
+                                    <div class="review mt-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="client-img">
+                                    <img src="{{ $web_source }}/img/client5.jpg"
+                                        alt="client-1" />
+                                </div>
+                                <div class="content">
+                                    <div class="client-info mb-30">
+                                        <h3>Jordan Alin</h3>
+                                        <span>Bloger & Youtuber</span>
+                                    </div>
+                                    <div class="quote">
+                                        <i class='bx bxs-quote-left'></i>
+                                    </div>
+                                    <p>
+                                        The Personal Travel Agents Academy is a
+                                        12-month training programme allowing
+                                        anyone with no previous travel
+                                        experience to start their own travel
+                                        business. This is an advanced course to
+                                        help build knowledge in travel and
+                                        develop sales skills.
+                                    </p>
+                                    <div class="review mt-15">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='clients-img'>
+                    <img class="image image-1" src="{{ $web_source }}/img/client1.jpg"
+                        alt="Demo Image">
+                    <img class="image image-2" src="{{ $web_source }}/img/client2.jpg"
+                        alt="Demo Image">
+                    <img class="image image-3" src="{{ $web_source }}/img/client3.jpg"
+                        alt="Demo Image">
+                    <img class="image image-4" src="{{ $web_source }}/img/client4.jpg"
+                        alt="Demo Image">
+                    <img class="image image-5" src="{{ $web_source }}/img/client5.jpg"
+                        alt="Demo Image">
+                </div>
+            </div>
+            <div class="shape">
+                <img src="{{ $web_source }}/img/shape1.png" alt="Background Shape">
+            </div>
+        </section>
+
+
+        <section id="team" class="team-section pt-100 pb-70">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Team & Guide</h2>
+                    <p>Travel has helped us to understand the meaning of life
+                        and it has helped us become better people. Each time we
+                        travel, we see the world with new eyes.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 col-md-6">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/team/team1.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <h3>
+                                        <a href="team.html">David Stiffen</a>
+                                    </h3>
+                                    <span>Company Founder</span>
+                                </div>
+                                <div class="social-link">
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-facebook'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-twitter'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-linkedin'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-instagram'></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-md-6">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/team/team2.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <h3>
+                                        <a href="team.html">Thomas Alis</a>
+                                    </h3>
+                                    <span>Tour Planner</span>
+                                </div>
+                                <div class="social-link">
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-facebook'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-twitter'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-linkedin'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-instagram'></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-md-6">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/team/team3.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <h3>
+                                        <a href="team.html">Envy Jeqlin</a>
+                                    </h3>
+                                    <span>Tour Guide</span>
+                                </div>
+                                <div class="social-link">
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-facebook'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-twitter'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-linkedin'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-instagram'></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-md-6">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/team/team4.jpg" alt="Demo
+                                    Image">
+                            </div>
+                            <div class="content">
+                                <div class="title">
+                                    <h3>
+                                        <a href="team.html">Brokel Nilson</a>
+                                    </h3>
+                                    <span>Company Director</span>
+                                </div>
+                                <div class="social-link">
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-facebook'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-twitter'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-linkedin'></i></a>
+                                    <a href="#" target="_blank"><i class='bx
+                                            bxl-instagram'></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="tours" class="tours-section pt-100 pb-70 bg-light">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Recent Tours</h2>
+                    <p>Travel has helped us to understand the meaning of life
+                        and it has helped us become better people. Each time we
+                        travel, we see the world with new eyes.</p>
+                </div>
+                <div class="row no-wrap">
+                    <div class="col-auto">
+                        <div class="item-single mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/tour/tour1.jpg" alt="Demo
+                                    Image" />
+                            </div>
+                            <div class="content">
+                                <span class="location"><i class='bx bx-map'></i>Oia,
+                                    Greece</span>
+                                <h3>
+                                    <a href="tours.html">Greek Cottage Greece</a>
+                                </h3>
+                                <div class="review mb-15">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <span>25 Review</span>
+                                </div>
+                                <p>
+                                    A wonderful little cottage right on the
+                                    seashore - perfect for exploring with the
+                                    little boat which is included in the price.
+                                    Located opposite Nidri sleeping.
+                                </p>
+                                <hr>
+                                <ul class="list">
+                                    <li><i class='bx bx-time'></i>3 Days</li>
+                                    <li><i class='bx bx-group'></i>160+</li>
+                                    <li>$1500</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="tours-slider owl-carousel mb-30">
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/tour/tour2.jpg"
+                                        alt="Demo Image" />
+                                </div>
+                                <div class="content">
+                                    <div class="review">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>39 Review</span>
+                                    </div>
+                                    <div class="title">
+                                        <h3>
+                                            <a href="tours.html">Piazza Castello</a>
+                                        </h3>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>7 Days</li>
+                                        <li><i class='bx bx-group'></i>60+</li>
+                                        <li>$2100</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/tour/tour3.jpg"
+                                        alt="Demo Image" />
+                                </div>
+                                <div class="content">
+                                    <div class="review">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>69 Review</span>
+                                    </div>
+                                    <div class="title">
+                                        <h3>
+                                            <a href="tours.html">Santorini,
+                                                Greece</a>
+                                        </h3>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>5 Days</li>
+                                        <li><i class='bx bx-group'></i>60+</li>
+                                        <li>$1500</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/tour/tour4.jpg"
+                                        alt="Demo Image" />
+                                </div>
+                                <div class="content">
+                                    <div class="review">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>39 Review</span>
+                                    </div>
+                                    <div class="title">
+                                        <h3>
+                                            <a href="tours.html">Metropolitan
+                                                City</a>
+                                        </h3>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>7 Days</li>
+                                        <li><i class='bx bx-group'></i>60+</li>
+                                        <li>$2300</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-item">
+                                <div class="image">
+                                    <img src="{{ $web_source }}/img/tour/tour5.jpg"
+                                        alt="Demo Image" />
+                                </div>
+                                <div class="content">
+                                    <div class="review">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <span>51 Review</span>
+                                    </div>
+                                    <div class="title">
+                                        <h3>
+                                            <a href="tours.html">Great Natural
+                                                Park</a>
+                                        </h3>
+                                    </div>
+                                    <ul class="list">
+                                        <li><i class='bx bx-time'></i>3 Days</li>
+                                        <li><i class='bx bx-group'></i>60+</li>
+                                        <li>$1200</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="blog" class="blog-section pt-100 pb-70">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Latest News & Blog</h2>
+                    <p>Travel has helped us to understand the meaning of life
+                        and it has helped us become better people. Each time we
+                        travel, we see the world with new eyes.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="item-single item-big mb-30">
+                            <div class="image">
+                                <img src="{{ $web_source }}/img/blog/blog-lg1.jpg"
+                                    alt="Demo Image" />
+                            </div>
+                            <div class="content">
+                                <ul class="info-list">
+                                    <li><i class='bx bx-calendar'></i> October
+                                        5, 2020</li>
+                                    <li><i class='bx bx-tag'></i>Tour, Tourism,
+                                        Travel</li>
+                                </ul>
+                                <h3>
+                                    <a href="blog-details.html">The real voyage
+                                        does not consist in seeking new
+                                        landscapes, but in having new eyes.</a>
+                                </h3>
+                                <p>
+                                    I have personally participated in many of
+                                    the programs mentioned on this site. One of
+                                    the programs is Save Our I have personally
+                                    in many of the programs mentioned on this
+                                    site.
+                                </p>
+                                <ul class="list">
+                                    <li>
+                                        <div class="author">
+                                            <img
+                                                src="{{ $web_source }}/img/blog/author1.jpg"
+                                                alt="Demo Image">
+                                            <span>By - Envy Jeqlin</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html" class="btn-primary">Read
+                                            More</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="item-single mb-30">
+                                    <div class="image">
+                                        <img src="{{ $web_source }}/img/blog/blog1.jpg"
+                                            alt="Demo Image" />
+                                    </div>
+                                    <div class="content">
+                                        <ul class="info-list">
+                                            <li><i class='bx bx-calendar'></i>
+                                                Oct 10, 2020</li>
+                                            <li><i class='bx bx-tag'></i>Tour</li>
+                                        </ul>
+                                        <h3>
+                                            <a href="blog-details.html">Take
+                                                only memories, leave only
+                                                footprints.</a>
+                                        </h3>
+                                        <ul class="list">
+                                            <li>
+                                                <div class="author">
+                                                    <img
+                                                        src="{{ $web_source }}/img/blog/author2.jpg"
+                                                        alt="Demo Image">
+                                                    <span>By - David Stiffen</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="item-single mb-30">
+                                    <div class="image">
+                                        <img src="{{ $web_source }}/img/blog/blog2.jpg"
+                                            alt="Demo Image" />
+                                    </div>
+                                    <div class="content">
+                                        <ul class="info-list">
+                                            <li><i class='bx bx-calendar'></i>
+                                                Nov 10, 2020</li>
+                                            <li><i class='bx bx-tag'></i>Travel</li>
+                                        </ul>
+                                        <h3>
+                                            <a href="blog-details.html">Life is
+                                                either a daring adventure.</a>
+                                        </h3>
+                                        <ul class="list">
+                                            <li>
+                                                <div class="author">
+                                                    <img
+                                                        src="{{ $web_source }}/img/blog/author3.jpg"
+                                                        alt="Demo Image">
+                                                    <span>By - David Milan</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="item-single mb-30">
+                                    <div class="image">
+                                        <img src="{{ $web_source }}/img/blog/blog3.jpg"
+                                            alt="Demo Image" />
+                                    </div>
+                                    <div class="content">
+                                        <ul class="info-list">
+                                            <li><i class='bx bx-calendar'></i>
+                                                Oct 5, 2020</li>
+                                            <li><i class='bx bx-tag'></i>Travel</li>
+                                        </ul>
+                                        <h3>
+                                            <a href="blog-details.html">Not all
+                                                those who wander are lost.</a>
+                                        </h3>
+                                        <ul class="list">
+                                            <li>
+                                                <div class="author">
+                                                    <img
+                                                        src="{{ $web_source }}/img/blog/author4.jpg"
+                                                        alt="Demo Image">
+                                                    <span>By - Christina</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="item-single mb-30">
+                                    <div class="image">
+                                        <img src="{{ $web_source }}/img/blog/blog4.jpg"
+                                            alt="Demo Image" />
+                                    </div>
+                                    <div class="content">
+                                        <ul class="info-list">
+                                            <li><i class='bx bx-calendar'></i>
+                                                Nov 9, 2020</li>
+                                            <li><i class='bx bx-tag'></i>Tour</li>
+                                        </ul>
+                                        <h3>
+                                            <a href="blog-details.html">Mountains
+                                                is always right destination.</a>
+                                        </h3>
+                                        <ul class="list">
+                                            <li>
+                                                <div class="author">
+                                                    <img
+                                                        src="{{ $web_source }}/img/blog/author5.jpg"
+                                                        alt="Demo Image">
+                                                    <span>By - Emma Watson</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 @stop
