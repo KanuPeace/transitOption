@@ -79,10 +79,9 @@ class TerminalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Terminal $terminal)
     {
         $company = auth()->user()->company;
-        $terminal = Terminal::findorfail($id);
         $countries = Country::orderby('name')->get();
         $states = !empty($terminal->country_id) ?  State::where("country_id" , $terminal->country_id)->orderby('name')->get() : [];
         $cities = !empty($terminal->state) ?  City::where("state_id" , $terminal->state_id)->orderby('name')->get() : [];
@@ -96,10 +95,10 @@ class TerminalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TerminalRequest $request, $id)
+    public function update(TerminalRequest $request, Terminal $terminal)
     {
         $data = $request->validated();
-        Terminal::findorfail($id)->update($data);
+        $terminal->update($data);
         return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal updated successfully!");
     }
 
@@ -109,9 +108,9 @@ class TerminalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Terminal $terminal)
     {
-        Terminal::findorfail($id)->delete();
+        $terminal->delete();
         return redirect()->route("company.terminals.index")->with("success_msg" , "Terminal deleted successfully!");
     }
 }

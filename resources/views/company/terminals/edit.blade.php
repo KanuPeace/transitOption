@@ -1,5 +1,7 @@
-@extends('web.layouts.app' , ['title' => "User Dashboard" , "activePage" => "vehicles" , "pageType" => "auth"])
+@extends('layouts.app' , ['title' => "User Dashboard" , "activePage" => "vehicles" , "pageType" => "auth"])
 @section('content')
+
+@include("layouts.breadcrumb", ["title" => "Edit Terminal", "crumbs" => [["title" => "Terminals" , "url" => route("company.terminals.index")]]] )
 
 <div class="">
 	<form method="POST" action="{{ route("company.terminals.update" , $terminal->id) }}"> @csrf @method("put")
@@ -13,7 +15,7 @@
 				<div class="col-md-4 form-group">
 					<div class="">
 						<label for="name">Country</label>
-						<select type="tel" class="video-form loadLocationOptions" url="{{ route('api.general.country.states') }}" data-target="#statesInput" name="country_id"  required>	
+						<select type="tel" class="form-control loadLocationOptions" url="{{ route('api.general.country.states') }}" data-target="#statesInput" name="country_id"  required>	
 							<option value="" disabled selected> Select Country</option>
 							@foreach ($countries as $country)
 								<option value="{{ $country->id }}" {{ $terminal->country_id == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
@@ -24,7 +26,7 @@
 				<div class="col-md-4 form-group">
 					<div class="">
 						<label for="name">State</label>
-						<select type="tel" class="video-form loadLocationOptions" url="{{ route('api.general.state.cities') }}" data-target="#citiesInput" id="statesInput" name="state_id"  required>
+						<select type="tel" class="form-control loadLocationOptions" url="{{ route('api.general.state.cities') }}" data-target="#citiesInput" id="statesInput" name="state_id"  required>
 							<option value="" disabled selected> Select State</option>
 							@foreach ($states as $state)
 								<option value="{{ $state->id }}" {{ $terminal->state_id == $state->id ? 'selected' : '' }}>{{ $state->name }}</option>
@@ -36,7 +38,7 @@
 				<div class="col-md-4 form-group">
 					<div class="">
 						<label for="email">City</label>
-						<select type="tel" class="video-form" id="citiesInput" name="city_id" >
+						<select type="tel" class="form-control" id="citiesInput" name="city_id" >
 							<option value="" disabled selected> Select City</option>
 							@foreach ($cities as $city)
 								<option value="{{ $city->id }}" {{ $terminal->city_id == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
@@ -81,7 +83,7 @@
 			
 			<div class="col-md-12 form-group" >
 				<div class="mt-2 mb-3">
-					<input type="submit" value="Next" class="btn color medium full" />
+					<input type="submit" value="Save" class="btn btn-success " />
 				</div>
 			</div>
 			

@@ -139,9 +139,9 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Vehicle $vehicle)
     {
-        $request["id"] = $id;
+        $request["id"] = $vehicle->id;
         return $this->factoryStepsOne($request);
     }
 

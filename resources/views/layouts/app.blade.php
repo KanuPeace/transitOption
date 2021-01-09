@@ -116,6 +116,7 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="{{ my_asset() }}dashboard1/js/dashboard.js"></script>
+    @yield("script")
     <!-- End custom js for this page -->
 </body>
 

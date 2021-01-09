@@ -1,5 +1,25 @@
-@extends('web.layouts.app' , ['title' => "User Dashboard" , "activePage" => "vehicles" , "pageType" => "auth"])
+@extends('layouts.app' , ['title' => "User Dashboard" , "activePage" => "vehicles" , "pageType" => "auth"])
 @section('content')
+<style>
+	.blank{
+		color: red;
+		font-size: 15px;
+	}
+	.label{
+		color: green;
+		font-size: 15px;
+	}
+
+	.seat_item i{
+		font-size: 35px;
+	}
+
+	.seat_item{
+		/* display: flex; */
+		/* justify-content: center */
+	}
+</style>
+@include("layouts.breadcrumb", ["title" => $step == 0 ? "Vehicles Factory" : "Vehicle Seats Style", "crumbs" => [["title" => "Vehicles" , "url" => route("company.vehicles.index")]]] )
 
 <div class="">
 	@if ($step == 0)
@@ -158,7 +178,7 @@
 			
 			<div class="col-md-12 form-group" >
 				<div class="mt-2 mb-3">
-					<input type="submit" value="Next" class="btn color medium full" />
+					<input type="submit" value="Next" class="btn btn-primary" />
 				</div>
 			</div>
 			
@@ -170,8 +190,8 @@
 			<input type="hidden" name="step" value="{{ $step }}" required>
 			<input type="hidden" name="data" value="{{ $requestData }}" required>
 			<input type="hidden" name="empty_seats" value="{{ optional($vehicle->seatStyle)->empty_seats }}" id="emptySeatsInput">
-			<h3>Vehicle Seats Style</h3>
-			<div class="row">
+			{{-- <h3>Vehicle Seats Style</h3> --}}
+			<div class="form-row">
 				<div class="col-md-6 form-group">
 					<div class="">
 						<label for="password">Width of Seats</label>
@@ -193,10 +213,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="row m-1" id="seatList"></div>
+			<div class="container">
+				<div class="row" id="seatList"></div>
+			</div>
 			<div class="" >
 				<div class="m-1 mt-2 mb-3">
-					<input type="submit" value="Done" class="btn color medium full" onclick=" return $('#step_2_form').trigger('submit'); "/>
+					<input type="submit" value="Done" class="btn btn-success" onclick=" return $('#step_2_form').trigger('submit'); "/>
 				</div>
 			</div>
 		</form>
@@ -248,7 +270,7 @@
 		for(let i = 1; i < globalSeats.length; i++){
 			seatsList.append(
 				'<div class="seat_item" id="'+ i +'" style="width: '+ (100 / width) +'%">'+
-					'<div class="card m-1 pt-2 pb-2  mb-3">'+
+					'<div class="card m-1 pl-3 pt-2 pb-2  mb-3">'+
 						'<i class="fa fa-user"></i>'+
 						 '<span class="label">'+ globalSeats[i] +'</span>'+
 						 '<span class="blank d-none">Blank</span>'+

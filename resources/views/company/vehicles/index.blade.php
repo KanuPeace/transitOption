@@ -42,19 +42,24 @@
                                         <td>{{ $vehicle->getStatus() }}</td>
                                         <td>{{ $vehicle->created_at }}</td>
                                         <td>
-                                            {{-- <form
+                                            <form
                                                 action="{{ route('company.vehicles.destroy', $vehicle->id) }}"
                                                 method="post">@csrf()
-                                                @method("delete") --}}
+                                                @method("delete")
                                                 <a href="{{ route('company.vehicles.images.index', $vehicle->id) }}"
-                                                    class="btn btn-sm btn-info mb-2">Images</a>
+													class="btn btn-sm btn-light">
+													<i class="fa fa-image"></i>
+
+												</a>
                                                 <a href="{{ route('company.vehicles.edit', $vehicle->id) }}"
-                                                    class="btn btn-sm btn-info">Edit</a>
-                                                {{-- <button
-                                                    class="btn btn-sm btn-danger">Delete</button>
-                                                --}}
-                                                {{--
-                                            </form> --}}
+													class="btn btn-sm btn-info">
+													<i class="fa fa-edit"></i>
+												</a>
+                                                <button
+													class="btn btn-sm btn-danger">
+													<i class="fa fa-trash"></i>
+												</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

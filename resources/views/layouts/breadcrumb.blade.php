@@ -1,6 +1,7 @@
 @php
 $crumbs = $crumbs ?? [];
 $items = count($crumbs);
+// dd($crumbs);
 @endphp
 <div class="page-header">
     <h3 class="page-title">{{ $title ?? '' }}</h3>
@@ -16,7 +17,9 @@ $items = count($crumbs);
                         <a href="{{ $crumb['url' ?? '#'] }}">{{ $crumb['title' ?? ''] }}</a>
                     </li>
                 @endforeach
+                <li class="breadcrumb-item active"><a href="#">{{ $title }}</a></li>
             @endif
         </ol>
     </nav>
 </div>
+@include('web.includes.flash_message')
