@@ -35,14 +35,15 @@
     </head>
     <body>
 
-        <div id="loading">
+        {{-- <div id="loading">
             <div class="loader"></div>
-        </div>
+        </div> --}}
 
         @include('web.includes.header')
 
-        @yield('content')
-
+        <div class="container">
+            @yield('content')
+        </div>
 
         
         <footer class="footer-area">

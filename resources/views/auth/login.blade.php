@@ -1,68 +1,43 @@
 @extends('web.layouts.app' , ['title' => "Login"])
 @section('content')
-	<!-- Main -->
-	<main class="main" role="main">
-		<!-- Page info -->
-		<header class="site-title color">
-			<div class="wrap">
-				<div class="container">
-					<h1>Login</h1>
-					<nav role="navigation" class="breadcrumbs">
-						<ul>
-							<li><a href="index.html" title="Home">Home</a></li>
-							<li>Login</li>
-						</ul>
-					</nav>
+	
+
+<div class="authentication-section">
+	<div class="container">
+		<div class="main-form ptb-100">
+			<form action="{{ route('login') }}" method="POST"> @csrf
+				<div class="content">
+					<h3>Welcome Back</h3>
+					<p>Login please if you already have an account</p>
 				</div>
-			</div>
-		</header>
-		<!-- //Page info -->
-		
-		<div class="wrap">
-			<div class="row">
-				<div class="col-md-3"></div>
-				<!--- Content -->
-				<div class="content one-half ">
-					<!--Login-->
-					<div class="box">
-					@include('web.includes.flash_message')
-					<form action="{{ route('login') }}" method="POST"> @csrf
-							<div class="f-row">
-								<div class="full-width">
-									<label for="email">Your email</label>
-									<input type="text" name="email" />
-								</div>
-							</div>
-							<div class="f-row">
-								<div class="full-width">
-									<label for="password">Your password</label>
-									<input type="password" name="password" />
-								</div>
-							</div>
-							<div class="f-row">
-								<div class="full-width check">
-									<input type="checkbox" id="checkbox" />
-									<label for="checkbox">Remember me next time</label>
-								</div>
-							</div>
-							<div class="f-row">
-								<div class="full-width">
-									<input type="submit" value="Login" class="btn color medium full" />
-								</div>
-							</div>
-							
-							<p><a href="{{ route('password.request') }}">Forgotten password?</a>
-								<br />
-								Dont have an account yet? 
-								<a href="{{ route('register') }}">Sign up</a>.</p>
-						</form>
+				<div class="form-group">
+					<div class="input-icon"><i class='bx bx-at'></i></div>
+					<input type="text" class="form-control" name="email" placeholder="Email address" required>
+				</div>
+				<div class="form-group">
+					<div class="input-icon"><i class='bx bx-lock'></i></div>
+					<input type="password" class="form-control" name="password" placeholder="Password" required>
+				</div>
+				<div class="row align-items-center mb-30">
+					<div class="col-lg-6 col-sm-6 col-6">
+						<div class="checkbox">
+							<input type="checkbox" id="remember">
+							<label for="remember">Remember me</label>
+						</div>
 					</div>
-					<!--//Login-->
+					<div class="col-lg-6 col-sm-6 col-6">
+						<div class="link">
+							<a href="forget-password.html">Forget password?</a>
+						</div>
+					</div>
 				</div>
-				<!--- //Content -->
-			</div>
+				<button type="submit" class="btn-primary">
+					Login
+				</button>
+			</form>
 		</div>
-	</main>
-	<!-- //Main -->
+	</div>
+</div>
+
 	
 @endsection
