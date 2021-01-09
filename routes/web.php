@@ -33,6 +33,10 @@ Route::namespace('App\Http\Controllers\Web')->group(function () {
     Route::get('/file/{file}', 'WebController@read_file')->name('read_file');
     // Route::match(['post','get'],'/admin/login', 'AdminController@login')->name('Adminlogin');
     // Route::post('/contact-process','ContactController@store')->name('contact.store');
+
+    Route::prefix("travel-guide")->as("trave_guide.")->group(function () {
+        Route::get('/vehicles', 'WebController@vehicles')->name('vehicles');
+    });
 });
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');

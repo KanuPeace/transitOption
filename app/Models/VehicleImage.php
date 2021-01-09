@@ -11,8 +11,12 @@ class VehicleImage extends Model
     use HasFactory , Constants;
     protected $guarded = [];
 
+    public function getImagePath(){ 
+        return $this->companyVehicleImagePath."/".$this->image;
+    }
+
     public function getImage(){
-        return route("read_file" , encrypt($this->companyVehicleImagePath."/".$this->image));
+        return readFileUrl("encrypt" ,$this->getImagePath());
     }
 
     public function vehicle(){

@@ -732,3 +732,16 @@ function logError(Exception $e)
 {
     logger($e->getMessage(), $e->getTrace());
 }
+
+
+ /**
+     * @param $mode = ["encrypt" , "decrypt"]
+     * @param $path = 
+     */
+    function readFileUrl($mode = "encrypt",$path){
+        if(strtolower($mode) == "encrypt"){
+            $path = base64_encode($path);
+            return route("read_file" , $path);
+        }
+        return base64_decode($path);
+    }

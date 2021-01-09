@@ -27,7 +27,7 @@ class WebController extends Controller
 
 
     public function read_file($file){
-        return getFileFromPrivateStorage(decrypt($file));
+        return getFileFromPrivateStorage(readFileUrl("descrypt" , $file));
     }
 
 

@@ -17,8 +17,8 @@ class VehicleImagesController extends Controller
     public function index($id)
     {
         $vehicle = Vehicle::findorfail($id);
-        $images = VehicleImage::where("vehicle_id" , $id)->get();
-        return view("company.vehicles.images.index" , compact("vehicle" , "images"));
+        $images = VehicleImage::where("vehicle_id", $id)->get();
+        return view("company.vehicles.images.index", compact("vehicle", "images"));
     }
 
     /**
@@ -39,19 +39,19 @@ class VehicleImagesController extends Controller
      */
     public function store(Request $request)
     {
-    $data = $request->validate([
+        $data = $request->validate([
             "vehicle_id" => "required|alpha_num",
             "image" => "required|image"
         ]);
 
-        $count = VehicleImage::where("vehicle_id" , $data["vehicle_id"])->count();   
-        if($count >= 3){
-            return back()->with("error_msg" , "Sorry, you cant upload more than 3 images per vehicle!");
-        }    
+        $count = VehicleImage::where("vehicle_id", $data["vehicle_id"])->count();
+        if ($count >= 3) {
+            return back()->with("error_msg", "Sorry, you cant upload more than 3 images per vehicle!");
+        }
 
-        $data["image"] = resizeImageandSave($request->file("image") , $this->companyVehicleImagePath , 'local' , 1200 , 700);
+        $data["image"] = resizeImageandSave($request->file("image"), $this->companyVehicleImagePath, 'local', 1200, 700);
         VehicleImage::create($data);
-        return back()->with("success_msg" , "Image created successfully!");
+        return back()->with("success_msg", "Image created successfully!");
     }
 
     /**
@@ -71,7 +71,7 @@ class VehicleImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(VehicleImage $image)
     {
         //
     }
@@ -83,17 +83,16 @@ class VehicleImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, VehicleImage $image)
     {
-        $image = VehicleImage::findorfail($id);
         $data = $request->validate([
             // "vehicle_id" => "required|alpha_num",
             "image" => "required|image"
         ]);
-        $data["image"] = resizeImageandSave($request->file("image") , $this->companyVehicleImagePath , 'local' , 1200 , 700);
-        deleteFileFromPrivateStorage($this->companyVehicleImagePath."/".$image->image);
+        $data["image"] = resizeImageandSave($request->file("image"), $this->companyVehicleImagePath, 'local', 1200, 700);
+        deleteFileFromPrivateStorage($this->companyVehicleImagePath . "/" . $image->image);
         $image->update($data);
-        return back()->with("success_msg" , "Image updated successfully!");
+        return back()->with("success_msg", "Image updated successfully!");
     }
 
     /**
@@ -102,8 +101,10 @@ class VehicleImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(VehicleImage $image)
     {
-        //
+        deleteFileFromPrivateStorage($image->getImagePath());
+        $image->delete();
+        return back()->with("success_msg", "Image delete successfully!");
     }
 }

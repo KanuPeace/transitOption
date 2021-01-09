@@ -3,7 +3,8 @@
 
     <div class="">
 
-        @include("layouts.breadcrumb", ["title" => "$vehicle->name #$vehicle->code Images"  ,  "crumbs" => [["title" => "Vehicles" , "url" => route("company.vehicles.index")]]])
+        @include("layouts.breadcrumb", ["title" => "$vehicle->name #$vehicle->code Images" , "crumbs" => [["title" =>
+        "Vehicles" , "url" => route("company.vehicles.index")]]])
 
         <div class="d-flex justify-content-between mb-3">
             <h4 class="card-title"></h4>
@@ -24,7 +25,10 @@
                                 data-target="#editImageModal_{{ $image->id }}">Edit</button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-danger btn-sm btn-block mb-2">Delete</button>
+                            <form action="{{ route('company.vehicles.images.destroy', $image->id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this item?')">@csrf
+                                @method("delete")
+                                <button class="btn btn-danger btn-sm btn-block mb-2">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
