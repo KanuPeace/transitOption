@@ -18,6 +18,7 @@ class VehicleImage extends Model
     public function getImage(){
         return readFileUrl("encrypt" ,$this->getImagePath());
     }
+    
 
     public function vehicle(){
         return $this->belongsTo(Vehicle::class , 'vehicle_id');

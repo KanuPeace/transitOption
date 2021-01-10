@@ -35,7 +35,11 @@ Route::namespace('App\Http\Controllers\Web')->group(function () {
     // Route::post('/contact-process','ContactController@store')->name('contact.store');
 
     Route::prefix("travel-guide")->as("trave_guide.")->group(function () {
-        Route::get('/vehicles', 'WebController@vehicles')->name('vehicles');
+        Route::get('/vehicles', 'TravelController@vehicles')->name('vehicles');
+
+        Route::middleware("auth")->group(function () {
+            Route::get('/booking/{code}', 'TravelController@booking')->name('booking');
+        });
     });
 });
 

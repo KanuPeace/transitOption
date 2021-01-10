@@ -31,6 +31,11 @@
 
         <link rel="stylesheet" href="{{ $web_source }}/css/responsive.css" />
 
+        <style>
+            .form-control{
+                width: 100% !important;
+            }
+        </style>
         <link rel="icon" href="{{ $web_source }}/img/favicon.png" type="image/png" />
     </head>
     <body>
@@ -41,9 +46,8 @@
 
         @include('web.includes.header')
 
-        <div class="container">
-            @yield('content')
-        </div>
+        @yield('content')
+
 
         
         <footer class="footer-area">
@@ -205,6 +209,7 @@
         <script src="{{ $web_source }}/js/jquery.ajaxchimp.min.js"></script>
 
         <script src="{{ $web_source }}/js/script.js"></script>
+        @yield('script')
     </body>
 
     <!-- Mirrored from templates.hibootstrap.com/jaunt/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Dec 2020 20:09:38 GMT -->

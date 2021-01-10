@@ -31,7 +31,7 @@
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="select-box">
                                             <i class='bx bx-map-alt'></i>
-                                            <select class="form-control" required>
+                                            <select class="form-control" name="from_location" required>
                                                 <option disabled selected>Current Location</option>
                                                 <option value="1">Ogun</option>
                                             </select>
@@ -40,7 +40,7 @@
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="select-box">
                                             <i class='bx bx-map-alt'></i>
-                                            <select class="form-control" required>
+                                            <select class="form-control" name="to_location" required>
                                                 <option disabled selected>Travel Destination</option>
                                                 <option value="1">Ogun</option>
                                             </select>
